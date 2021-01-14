@@ -13,18 +13,18 @@ public:
     GuiSlider(uint32 id, SDL_Rect bounds, const char *text);
     virtual ~GuiSlider();
 
-    bool Update(Input* input, float dt);
-    bool Draw(Render* render);
+    bool Update(float dt);
+    bool Draw();
 
 private:
 
     // GuiSlider specific properties
     // Maybe some animation properties for state change?
-    SDL_Rect slider;
-    int value;
+    SDL_Rect slider = { 0,0,0,0 };;
+    int value = 0;
 
-    int minValue;
-    int maxValue;
+    int minValue = 0;
+    int maxValue = 0;
 };
 
 #endif // __GUISLIDER_H__

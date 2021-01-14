@@ -3,10 +3,6 @@
 
 #include "SString.h"
 
-class Input;
-class Render;
-class Textures;
-
 class GuiControl;
 
 enum class SceneType
@@ -23,17 +19,17 @@ public:
 
     Scene() : active(true), loaded(false), transitionRequired(false) {}
 
-    virtual bool Load(Textures* tex)
+    virtual bool Load()
     {
         return true;
     }
 
-    virtual bool Update(Input* input, float dt)
+    virtual bool Update(float dt)
     {
         return true;
     }
 
-    virtual bool Draw(Render* render)
+    virtual bool Draw()
     {
         return true;
     }
@@ -58,13 +54,13 @@ public:
 public:
 
     bool active = true;
-    SString name;         // Scene name identifier?
+    SString name = "";         // Scene name identifier?
 
     // Possible properties
     bool loaded = false;
     // TODO: Transition animation properties
 
-    bool transitionRequired;
+    bool transitionRequired = false;
     SceneType nextScene;
 };
 

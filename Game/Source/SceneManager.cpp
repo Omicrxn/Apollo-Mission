@@ -1,13 +1,13 @@
 #include "SceneManager.h"
 
+#include "App.h"
+#include "Render.h"
+#include "Input.h"
+
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 #include "SceneGameplay.h"
 #include "SceneEnding.h"
-
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
 
 #include "GuiButton.h"
 
@@ -19,17 +19,13 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex) : Module()
+SceneManager::SceneManager() : Module()
 {
 	name.Create("scenemanager");
 
 	onTransition = false;
 	fadeOutCompleted = false;
 	transitionAlpha = 0.0f;;
-
-	this->input = input;
-	this->render = render;
-	this->tex = tex;
 }
 
 // Destructor
@@ -49,7 +45,7 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	current = new SceneTitle();
-	current->Load(tex);
+	current->Load();
 
 	next = nullptr;
 
@@ -97,7 +93,7 @@ bool SceneManager::Update(float dt)
 		//if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) render->camera.x -= 1;
 		//if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) render->camera.x += 1;
 
-		current->Update(input, dt);
+		current->Update(dt);
 	}
 	else
 	{
@@ -112,7 +108,7 @@ bool SceneManager::Update(float dt)
 				transitionAlpha = 1.0f;
 
 				current->Unload();	// Unload current screen
-				next->Load(tex);	// Load next screen
+				next->Load();	// Load next screen
 
 				RELEASE(current);	// Free current pointer
 				current = next;		// Assign next pointer
@@ -136,12 +132,12 @@ bool SceneManager::Update(float dt)
 	}
 
 	// Draw current scene
-	current->Draw(render);
+	current->Draw();
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition)
 	{
-		render->DrawRectangle({ 0, 0, 1280, 720 }, { 0, 0, 0, (unsigned char)(255.0f * transitionAlpha) });
+		app->render->DrawRectangle({ 0, 0, 1280, 720 }, { 0, 0, 0, (unsigned char)(255.0f * transitionAlpha) });
 	}
 
 	// L12b: Debug pathfinding
@@ -178,7 +174,7 @@ bool SceneManager::Update(float dt)
 		current->transitionRequired = false;
 	}
 
-	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
 	return true;
 }
 

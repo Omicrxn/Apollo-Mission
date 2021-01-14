@@ -1,5 +1,10 @@
 #include "SceneGameplay.h"
 
+#include "App.h"
+#include "Render.h"
+#include "Input.h"
+#include "Audio.h"
+
 #include "EntityManager.h"
 
 SceneGameplay::SceneGameplay()
@@ -9,11 +14,11 @@ SceneGameplay::SceneGameplay()
 SceneGameplay::~SceneGameplay()
 {}
 
-bool SceneGameplay::Load(Textures* tex) /*EntityManager entityManager)*/
+bool SceneGameplay::Load() /*EntityManager entityManager)*/
 {
-	map = new Map(tex);
+	map = new Map();
 
-	// L03: DONE: Load map
+	//// L03: DONE: Load map
 	// L12b: Create walkability map on map loading
 	if (map->Load("platformer.tmx") == true)
 	{
@@ -26,7 +31,7 @@ bool SceneGameplay::Load(Textures* tex) /*EntityManager entityManager)*/
 	}
 
 	// Load music
-	//AudioManager::PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
@@ -51,12 +56,12 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 	else return false;
 }
 
-bool SceneGameplay::Update(Input *input, float dt)
+bool SceneGameplay::Update(float dt)
 {
 	// Collision detection: map vs player
 	iPoint tempPlayerPosition = player->position;
 
-	player->Update(input, dt);
+	player->Update(dt);
 
 	// Check if updated player position collides with next tile
 	// IMPROVEMENT: Just check adyacent tiles to player
@@ -74,21 +79,21 @@ bool SceneGameplay::Update(Input *input, float dt)
 		}
 	}
 
-	if (input->GetKey(SDL_SCANCODE_D) == KeyState::KEY_UP) map->drawColliders = !map->drawColliders;
+	if (app->input->GetKey(SDL_SCANCODE_D) == KeyState::KEY_UP) map->drawColliders = !map->drawColliders;
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
-	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
-	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
+	//if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
+	//if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
 	return true;
 }
 
-bool SceneGameplay::Draw(Render* render)
+bool SceneGameplay::Draw()
 {
 	// Draw map
-	map->Draw(render);
+	map->Draw();
 
-	player->Draw(render);
+	player->Draw();
 
     return false;
 }

@@ -24,12 +24,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	PERF_START(ptimer);
 
 	win = new Window();
-	input = new Input(win);
-	render = new Render(win);
-	tex = new Textures(render);
+	input = new Input();
+	render = new Render();
+	tex = new Textures();
 	audio = new AudioManager();
 	entityManager = new EntityManager();
-	sceneManager = new SceneManager(input, render, tex);
+	sceneManager = new SceneManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

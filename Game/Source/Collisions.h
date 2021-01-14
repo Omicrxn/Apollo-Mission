@@ -3,9 +3,8 @@
 #define MAX_COLLIDERS 50
 
 #include "Module.h"
-#include "SDL/include/SDL_Rect.h"
 
-class Render;
+#include "SDL/include/SDL_Rect.h"
 
 struct Collider
 {
@@ -31,7 +30,7 @@ struct Collider
 
 	bool Intersects(const SDL_Rect& r) const;
 
-	//Variables
+	// Variables
 	SDL_Rect rect = { 0, 0, 0, 0 };
 	bool pendingToDelete = false;
 	Type type = Type::NONE;
@@ -44,7 +43,7 @@ class Collisions : public Module
 public:
 	// Constructor
 	// Fills all collision matrix data
-	Collisions(Render* render);
+	Collisions();
 
 	// Destructor
 	~Collisions();
@@ -90,7 +89,4 @@ private:
 public:
 	// Simple debugging flag to draw all colliders
 	bool debug = false;
-
-private:
-	Render* render = nullptr;
 };

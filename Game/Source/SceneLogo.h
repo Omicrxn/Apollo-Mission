@@ -12,21 +12,21 @@ public:
     SceneLogo();
     virtual ~SceneLogo();
 
-    bool Load(Textures* tex);
+    bool Load();
 
-    bool Update(Input* input, float dt);
+    bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
 
     bool Unload();
 
 private:
 
-    SDL_Rect logo;
+    SDL_Rect logo = { 0,0,0,0 };
 
-    int state;
-    float timeCounter;
-    float logoAlpha;
+    int state = 0;
+    float timeCounter = 0.0f;
+    float logoAlpha = 0.0f;
 };
 
 #endif // __SCENELOGO_H__

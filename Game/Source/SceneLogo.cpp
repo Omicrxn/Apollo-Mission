@@ -1,8 +1,7 @@
 #include "SceneLogo.h"
 
-#include "Input.h"
+#include "App.h"
 #include "Render.h"
-#include "Textures.h"
 
 #include "EntityManager.h"
 
@@ -21,12 +20,12 @@ SceneLogo::~SceneLogo()
 {
 }
 
-bool SceneLogo::Load(Textures* tex)
+bool SceneLogo::Load()
 {
     return false;
 }
 
-bool SceneLogo::Update(Input* input, float dt)
+bool SceneLogo::Update(float dt)
 {
     if (state == 0)
     {
@@ -62,11 +61,11 @@ bool SceneLogo::Update(Input* input, float dt)
     return false;
 }
 
-bool SceneLogo::Draw(Render* render)
+bool SceneLogo::Draw()
 {
-    render->DrawRectangle({ 0, 0, 1280, 720 }, { 100, 200, 200, 255 });
+    app->render->DrawRectangle({ 0, 0, 1280, 720 }, { 100, 200, 200, 255 });
 
-    render->DrawRectangle(logo, { 255, 0, 0, (uchar)(255.0f * logoAlpha) });
+    app->render->DrawRectangle(logo, { 255, 0, 0, (uchar)(255.0f * logoAlpha) });
 
     return false;
 }

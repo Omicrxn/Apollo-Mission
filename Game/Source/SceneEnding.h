@@ -10,11 +10,11 @@ public:
     SceneEnding();
     virtual ~SceneEnding();
 
-    bool Load(Textures* tex);
+    bool Load();
 
-    bool Update(Input* input, float dt);
+    bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
 
     bool Unload();
 

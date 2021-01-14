@@ -2,8 +2,6 @@
 #define __PLAYER_H__
 
 #include "Entity.h"
-#include "Input.h"
-#include "Render.h"
 
 #include "Point.h"
 #include "SString.h"
@@ -24,9 +22,9 @@ public:
 
     Player();
 
-    bool Update(Input* input, float dt);
+    bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
 
     void SetTexture(SDL_Texture *tex);
 
@@ -34,12 +32,12 @@ public:
 
 public:
 
-    SDL_Texture* texture;   // Player spritesheet
+    SDL_Texture* texture = nullptr;   // Player spritesheet
 
     // TODO: Define all animation properties
     PlayerAnim currentAnim;
 
-    int width, height;
+    int width = 0, height = 0;
 
     float jumpSpeed = 0.0f;
     bool readyToJump = true;

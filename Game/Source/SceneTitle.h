@@ -14,11 +14,11 @@ public:
     SceneTitle();
     virtual ~SceneTitle();
 
-    bool Load(Textures* tex);
+    bool Load();
 
-    bool Update(Input* input, float dt);
+    bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
 
     bool Unload();
 
@@ -27,10 +27,10 @@ public:
 
 private:
 
-    GuiButton* btnStart;
-    GuiButton* btnExit;
+    GuiButton* btnStart = nullptr;
+    GuiButton* btnExit = nullptr;
 
-    Font* font;
+    Font* font = nullptr;
 };
 
 #endif // __SCENETITLE_H__

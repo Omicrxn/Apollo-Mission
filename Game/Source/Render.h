@@ -8,13 +8,11 @@
 
 #include "SDL/include/SDL.h"
 
-class Window;
-
 class Render : public Module
 {
 public:
 
-	Render(Window* win);
+	Render();
 
 	// Destructor
 	virtual ~Render();
@@ -55,13 +53,12 @@ public:
 
 public:
 
-	SDL_Renderer* renderer;
-	SDL_Rect camera;
-	SDL_Rect viewport;
+	SDL_Renderer* renderer = nullptr;
+	SDL_Rect camera = { 0,0,0,0 };
+	SDL_Rect viewport = { 0,0,0,0 };
 	SDL_Color background;
 
-	Window* win;
-	uint scale;
+	uint scale = 0;
 };
 
 #endif // __RENDER_H__

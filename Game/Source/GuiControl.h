@@ -49,12 +49,12 @@ public:
         texture = NULL;
     }
 
-    virtual bool Update(Input* input, float dt)
+    virtual bool Update(float dt)
     {
         return true;
     }
 
-    virtual bool Draw(Render* render) const
+    virtual bool Draw() const
     {
         return true;
     }
@@ -81,16 +81,16 @@ public:
     GuiControlType type;
     GuiControlState state;
 
-    SString text;           // Control text (if required)
-    SDL_Rect bounds;        // Position and size
+    SString text = "";           // Control text (if required)
+    SDL_Rect bounds = { 0,0,0,0 };       // Position and size
     SDL_Color color;        // Tint color
 
-    SDL_Texture* texture;   // Texture atlas reference
-    SDL_Rect section;       // Texture atlas base section
+    SDL_Texture* texture = nullptr;   // Texture atlas reference
+    SDL_Rect section = { 0,0,0,0 };       // Texture atlas base section
 
     //Font font;              // Text font
 
-    Scene* observer;        // Observer module (it should probably be an array/list)
+    Scene* observer = nullptr;        // Observer module (it should probably be an array/list)
 };
 
 #endif // __GUICONTROL_H__

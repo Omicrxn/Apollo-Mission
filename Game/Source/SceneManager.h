@@ -6,15 +6,11 @@
 
 class GuiButton;
 
-class Input;
-class Render;
-class Textures;
-
 class SceneManager : public Module
 {
 public:
 
-	SceneManager(Input* input, Render* render, Textures* tex);
+	SceneManager();
 
 	// Destructor
 	virtual ~SceneManager();
@@ -38,18 +34,14 @@ public:
 	bool CleanUp();
 
 private:
-
-	Input* input;
-	Render* render;
-	Textures* tex;
 	
-	Scene* current;
-	Scene* next;
+	Scene* current = nullptr;
+	Scene* next = nullptr;
 
 	// Required variables to manage screen transitions (fade-in, fade-out)
-	bool onTransition;
-	bool fadeOutCompleted;
-	float transitionAlpha;
+	bool onTransition = false;
+	bool fadeOutCompleted = false;
+	float transitionAlpha = 0.0f;
 };
 
 #endif // __SCENEMANAGER_H__

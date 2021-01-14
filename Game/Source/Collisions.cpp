@@ -1,12 +1,14 @@
 #include "Collisions.h"
 
+#include "App.h"
 #include "Render.h"
+
 #include "SDL/include/SDL_scancode.h"
 
-Collisions::Collisions(Render* render) : Module()
+Collisions::Collisions() : Module()
 {
 	name = "collisions";
-	this->render = render;
+
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		colliders[i] = nullptr;
@@ -134,34 +136,34 @@ void Collisions::DebugDraw()
 		switch (colliders[i]->type)
 		{
 		case Collider::Type::NONE: // White
-			render->DrawRectangle(colliders[i]->rect, { 255, 255, 255,alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 255, 255, 255,alpha });
 			break;
 		case Collider::Type::WALL: // Blue
-			render->DrawRectangle(colliders[i]->rect, { 0, 0, 255, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 0, 0, 255, alpha });
 			break;
 		case Collider::Type::PLAYER: // Green
-			render->DrawRectangle(colliders[i]->rect, { 0, 255, 0, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 0, 255, 0, alpha });
 			break;
 		case Collider::Type::ENEMY: // Red
-			render->DrawRectangle(colliders[i]->rect, { 255, 0, 0, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 255, 0, 0, alpha });
 			break;
 		case Collider::Type::PLAYER_BULLET: // Yellow
-			render->DrawRectangle(colliders[i]->rect, { 255, 255, 0, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 255, 255, 0, alpha });
 			break;
 		case Collider::Type::ENEMY_SHOT: // Magenta
-			render->DrawRectangle(colliders[i]->rect, { 255, 0, 255, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 255, 0, 255, alpha });
 			break;
 		case Collider::Type::WEAPON: // GREY
-			render->DrawRectangle(colliders[i]->rect, { 128, 128, 128, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 128, 128, 128, alpha });
 			break;
 		case Collider::Type::ITEM_COIN: // DARK BLUE
-			render->DrawRectangle(colliders[i]->rect, { 0, 100, 128, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 0, 100, 128, alpha });
 			break;
 		case Collider::Type::ITEM_HEART: // DARK RED
-			render->DrawRectangle(colliders[i]->rect, { 128, 0, 0, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 128, 0, 0, alpha });
 			break;
 		case Collider::Type::CHECKPOINT: // DARK GREEN
-			render->DrawRectangle(colliders[i]->rect, { 0, 128, 0, alpha });
+			app->render->DrawRectangle(colliders[i]->rect, { 0, 128, 0, alpha });
 			break;
 		}
 	}

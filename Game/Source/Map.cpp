@@ -1,16 +1,19 @@
 #include "Map.h"
 
+#include "App.h"
+#include "Render.h"
+#include "Textures.h"
+
 #include "Defs.h"
 #include "Log.h"
 
 #include <math.h>
 
-Map::Map(Textures* texture) : Entity(EntityType::MAP)
+Map::Map() : Entity(EntityType::MAP)
 {
 	mapLoaded = false;
 	folder.Create("Assets/Maps/");
 
-	tex = texture;
 	scale = 2;
 }
 
@@ -193,27 +196,27 @@ void Map::PropagateAStar(int heuristic)
 */
 
 // Draw the map (all requried layers)
-void Map::Draw(Render* render)
+void Map::Draw()
 {
 	if (mapLoaded == false) return;
 
-	camOffset.x = render->camera.x;
-	camOffset.y = render->camera.y;
+	camOffset.x = app->render->camera.x;
+	camOffset.y = app->render->camera.y;
 
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one
 	for (int i = 0; i < data.layers.Count(); i++)
 	{
-		if ((data.layers[i]->properties.GetProperty("drawable", 1) != 0) || drawColliders) DrawLayer(render, i);
+		if ((data.layers[i]->properties.GetProperty("drawable", 1) != 0) || drawColliders) DrawLayer(i);
 	}
 }
 
-void Map::DrawLayer(Render* render, int num)
+void Map::DrawLayer(int num)
 {
 	if (num < data.layers.Count())
 	{
 		MapLayer* layer = data.layers[num];
 
-		render->scale = scale;
+		app->render->scale = scale;
 
 		// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
 		for (int y = 0; y < data.height; ++y)
@@ -230,12 +233,12 @@ void Map::DrawLayer(Render* render, int num)
 					SDL_Rect rec = tileset->GetTileRect(tileId);
 					iPoint pos = MapToWorld(x, y);
 
-					render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+					app->render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
 				}
 			}
 		}
 
-		render->scale = 1;
+		app->render->scale = 1;
 	}
 }
 
@@ -552,7 +555,7 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	else
 	{
 		// L03: DONE: Load Tileset image
-		set->texture = tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+		set->texture = app->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
 		set->texWidth = image.attribute("width").as_int();

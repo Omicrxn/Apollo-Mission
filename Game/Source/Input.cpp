@@ -1,6 +1,9 @@
 #include "Input.h"
 #include "Window.h"
 
+#include "App.h"
+#include "Window.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -8,15 +11,13 @@
 
 #define MAX_KEYS 300
 
-Input::Input(Window* win) : Module()
+Input::Input() : Module()
 {
 	name.Create("input");
 
 	keyboard = new KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KeyState) * MAX_KEYS);
 	memset(mouseButtons, KEY_IDLE, sizeof(KeyState) * NUM_MOUSE_BUTTONS);
-
-	this->win = win;
 }
 
 // Destructor
@@ -121,7 +122,7 @@ bool Input::PreUpdate()
 			break;
 
 			case SDL_MOUSEMOTION:
-				int scale = win->GetScale();
+				int scale = app->win->GetScale();
 				mouseMotionX = event.motion.xrel / scale;
 				mouseMotionY = event.motion.yrel / scale;
 				mouseX = event.motion.x / scale;

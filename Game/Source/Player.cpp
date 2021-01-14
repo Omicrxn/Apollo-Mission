@@ -1,5 +1,9 @@
 #include "Player.h"
 
+#include "App.h"
+#include "Render.h"
+#include "Input.h"
+
 Player::Player() : Entity(EntityType::PLAYER)
 {
     texture = NULL;
@@ -12,18 +16,18 @@ Player::Player() : Entity(EntityType::PLAYER)
     // Define Player animations
 }
 
-bool Player::Update(Input* input, float dt)
+bool Player::Update(float dt)
 {
     #define GRAVITY 400.0f
     #define PLAYER_MOVE_SPEED 200.0f
     #define PLAYER_JUMP_SPEED 350.0f
 
-    //if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt);
-    //if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) position.x -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt);
+    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt);
+    if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
+    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) position.x -= (PLAYER_MOVE_SPEED * dt);
+    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt);
 
-    if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_JUMP_SPEED * dt);
+    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_JUMP_SPEED * dt);
 
     // Calculate gravity acceleration
     jumpSpeed += GRAVITY * dt;
@@ -32,14 +36,14 @@ bool Player::Update(Input* input, float dt)
     return true;
 }
 
-bool Player::Draw(Render* render)
+bool Player::Draw()
 {
     // TODO: Calculate the corresponding rectangle depending on the
     // animation state and animation frame
-    //SDL_Rect rec = { 0 };
-    //render->DrawTexture(texture, position.x, position.y, rec);
+    SDL_Rect rec = { 0 };
+    app->render->DrawTexture(texture, position.x, position.y, &rec);
 
-    render->DrawRectangle(GetBounds(), { 255, 0, 0, 255 });
+    app->render->DrawRectangle(GetBounds(), { 255, 0, 0, 255 });
 
     return false;
 }

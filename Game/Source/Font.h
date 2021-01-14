@@ -11,7 +11,7 @@ class Font
 {
 public:
 
-    Font(const char* rtpFontFile, Textures* tex);
+    Font(const char* rtpFontFile);
 
     ~Font();
 
@@ -20,12 +20,12 @@ public:
 
 private:
 	
-    bool fontLoaded;
+    bool fontLoaded = false;
 
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
 
-    int baseSize;
-    int charsCount;
+    int baseSize = 0;
+    int charsCount = 0;
     SDL_Rect charsRecs[128];
 };
 

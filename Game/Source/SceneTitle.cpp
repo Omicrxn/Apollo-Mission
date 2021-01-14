@@ -1,8 +1,8 @@
 #include "SceneTitle.h"
 
-#include "Input.h"
+#include "App.h"
 #include "Render.h"
-#include "Textures.h"
+#include "Input.h"
 #include "Font.h"
 
 #include "EntityManager.h"
@@ -24,34 +24,34 @@ SceneTitle::~SceneTitle()
 {
 }
 
-bool SceneTitle::Load(Textures* tex)
+bool SceneTitle::Load()
 {
-    font = new Font("Assets/Fonts/londrina.xml", tex);
+    font = new Font("Assets/Fonts/londrina.xml");
 
     return false;
 }
 
-bool SceneTitle::Update(Input* input, float dt)
+bool SceneTitle::Update(float dt)
 {
-    //if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::GAMEPLAY);
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::GAMEPLAY);
 
-    btnStart->Update(input, dt);
-    btnExit->Update(input, dt);
+    btnStart->Update(dt);
+    btnExit->Update(dt);
 
     return false;
 }
 
-bool SceneTitle::Draw(Render* render)
+bool SceneTitle::Draw()
 {
-    render->DrawRectangle({ 0, 0, 1280, 720 }, { 100, 100, 80, 255 });
+    app->render->DrawRectangle({ 0, 0, 1280, 720 }, { 100, 100, 80, 255 });
 
-    btnStart->Draw(render);
-    btnExit->Draw(render);
+    btnStart->Draw();
+    btnExit->Draw();
 
     char score[64] = { 0 };
     sprintf_s(score, 64, "SCORE: %03i", 56);
 
-    render->DrawText(font, score, 10, 10, 200, 0, { 255, 0, 255, 255 });
+    app->render->DrawText(font, score, 10, 10, 200, 0, { 255, 0, 255, 255 });
 
     return false;
 }

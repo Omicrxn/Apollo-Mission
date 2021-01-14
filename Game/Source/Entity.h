@@ -26,14 +26,14 @@ public:
 
 public:
 
-    EntityType type;
+    EntityType type = EntityType::UNKNOWN;
     bool active = true;
     //SString name;         // Entity name identifier?
     //uint32 id;            // Entity identifier?
 
     // Possible properties, it depends on how generic we
     // want our Entity class, maybe it's not renderable...
-    iPoint position;        // Use a float instead?
+    iPoint position = { 0,0 };        // Use a float instead?
     bool renderable = false;
     //SDL_Texture* texture;
 };

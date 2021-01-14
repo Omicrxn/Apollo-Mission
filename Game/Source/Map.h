@@ -2,8 +2,6 @@
 #define __MAP_H__
 
 #include "Entity.h"
-#include "Render.h"
-#include "Textures.h"
 
 #include "List.h"
 #include "PQueue.h"
@@ -122,7 +120,7 @@ class Map : public Entity
 {
 public:
 
-    Map(Textures* render);
+    Map();
 
     // Destructor
     virtual ~Map();
@@ -131,9 +129,9 @@ public:
     bool Awake(pugi::xml_node& conf);
 
     // Called each loop iteration
-    void Draw(Render* render);
+    void Draw();
 
-	void DrawLayer(Render* render, int num);
+	void DrawLayer(int num);
 
     // Called before quitting
     bool CleanUp();
@@ -195,14 +193,12 @@ public:
 
 private:
 
-	Textures* tex;
-
     pugi::xml_document mapFile;
     SString folder;
-    bool mapLoaded;
+	bool mapLoaded = false;
 
 	uint32 scale;
-	iPoint camOffset;
+	iPoint camOffset = { 0,0 };
     
 	// BFS/Dijkstra variables not required any more: Using PathFinding class
 	/*

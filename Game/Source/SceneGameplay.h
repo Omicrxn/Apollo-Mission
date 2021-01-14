@@ -13,20 +13,20 @@ public:
     SceneGameplay();
     virtual ~SceneGameplay();
 
-    bool Load(Textures* tex);
+    bool Load();
 
-    bool Update(Input* input, float dt);
+    bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
 
     bool Unload();
 
 private:
 
-    Map* map;
-    Player* player;
+    Map* map = nullptr;
+    Player* player = nullptr;
 
-    SDL_Rect camera;
+    SDL_Rect camera = { 0,0,0,0 };
 };
 
 #endif // __SCENEGAMEPLAY_H__

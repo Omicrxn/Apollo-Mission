@@ -32,16 +32,16 @@ public:
 
 public:
 	// The window we'll be rendering to
-	SDL_Window* window;
+	SDL_Window* window = nullptr;
 
 	// The surface contained by the window
 	SDL_Surface* screenSurface;
 
 private:
-	SString title;
-	uint width;
-	uint height;
-	uint scale;
+	SString title = "";
+	uint width = 0;
+	uint height = 0;
+	uint scale = 0;
 };
 
 #endif // __WINDOW_H__

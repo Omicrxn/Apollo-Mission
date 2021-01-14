@@ -13,14 +13,14 @@ public:
     GuiCheckBox(uint32 id, SDL_Rect bounds, const char *text);
     virtual ~GuiCheckBox();
 
-    bool Update(Input* input, float dt);
-    bool Draw(Render* render);
+    bool Update(float dt);
+    bool Draw();
 
 private:
 
     // GuiCheckBox specific properties
     // Maybe some animation properties for state change?
-    bool checked;
+    bool checked = false;
 };
 
 #endif // __GUICHECKBOX_H__

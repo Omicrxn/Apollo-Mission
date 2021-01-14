@@ -1,4 +1,7 @@
 #include "Render.h"
+
+#include "App.h"
+#include "Render.h"
 #include "Window.h"
 
 #include "Defs.h"
@@ -7,15 +10,13 @@
 
 #define VSYNC true
 
-Render::Render(Window* win) : Module()
+Render::Render() : Module()
 {
 	name.Create("renderer");
 	background.r = 0;
 	background.g = 0;
 	background.b = 0;
 	background.a = 0;
-
-	this->win = win;
 }
 
 // Destructor
@@ -36,7 +37,7 @@ bool Render::Awake(pugi::xml_node& config)
 		LOG("Using vsync");
 	}
 
-	renderer = SDL_CreateRenderer(win->window, -1, flags);
+	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
 	if(renderer == NULL)
 	{
@@ -45,8 +46,8 @@ bool Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = win->screenSurface->w;
-		camera.h = win->screenSurface->h;
+		camera.w = app->win->screenSurface->w;
+		camera.h = app->win->screenSurface->h;
 		camera.x = 0;
 		camera.y = -400;
 	}
@@ -58,8 +59,10 @@ bool Render::Awake(pugi::xml_node& config)
 bool Render::Start()
 {
 	LOG("render start");
+
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+
 	return true;
 }
 
