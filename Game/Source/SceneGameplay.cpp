@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "Textures.h"
+#include "Collisions.h"
 
 #include "EntityManager.h"
 
@@ -46,6 +47,8 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 
 bool SceneGameplay::Update(float dt)
 {
+	/*app->collisions->AddCollider({ 0,0,1280,100 }, Collider::Type::WALL);*/
+
 	// Collision detection: map vs player
 	//iPoint tempPlayerPosition = player->position;
 
