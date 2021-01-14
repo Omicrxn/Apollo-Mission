@@ -7,6 +7,7 @@
 
 class GuiControl;
 enum class GuiControlState;
+class Collider;
 
 class Module
 {
@@ -67,6 +68,8 @@ public:
 	{
 		return true;
 	}
+
+	virtual void OnCollision(Collider* c1, Collider* c2) {}
 
 public:
 
