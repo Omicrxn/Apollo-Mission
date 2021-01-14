@@ -7,6 +7,14 @@
 
 class Font;
 
+enum class MenuSelection
+{
+    NONE,
+    START,
+    CREDITS,
+    EXIT
+};
+
 class SceneTitle : public Scene
 {
 public:
@@ -27,8 +35,20 @@ public:
 
 private:
 
+    SDL_Texture* atlasGUITexture = nullptr;
+
     GuiButton* btnStart = nullptr;
     GuiButton* btnExit = nullptr;
+    GuiButton* btnCredits = nullptr;
+
+    MenuSelection menuCurrentSelection = MenuSelection::NONE;
+
+    iPoint mousePos = { 0,0 };
+    bool clicking = false;
+    int hoverFx = -1;
+    int clickFx = -1;
+
+    SDL_Rect mouseCursorRect[2] = { 0,0,0,0 };
 
     Font* font = nullptr;
 };

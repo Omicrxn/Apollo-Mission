@@ -13,15 +13,7 @@
 enum class GuiControlType
 {
     BUTTON,
-    TOGGLE,
-    CHECKBOX,
-    SLIDER,
-    SLIDERBAR,
-    COMBOBOX,
-    DROPDOWNBOX,
-    INPUTBOX,
-    VALUEBOX,
-    SPINNER
+    NONE
 };
 
 enum class GuiControlState
@@ -29,8 +21,7 @@ enum class GuiControlState
     DISABLED,
     NORMAL,
     FOCUSED,
-    PRESSED,
-    SELECTED
+    PRESSED
 };
 
 class GuiControl
@@ -78,8 +69,8 @@ public:
 public:
 
     uint32 id;
-    GuiControlType type;
-    GuiControlState state;
+    GuiControlType type = GuiControlType::NONE;
+    GuiControlState state = GuiControlState::DISABLED;
 
     SString text = "";           // Control text (if required)
     SDL_Rect bounds = { 0,0,0,0 };       // Position and size

@@ -15,8 +15,6 @@ public:
     virtual ~Enemy();
 
 private:
-
-    DynArray<iPoint>* path;
 };
 
 #endif // __ENEMY_H__

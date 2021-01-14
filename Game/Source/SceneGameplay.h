@@ -3,7 +3,6 @@
 
 #include "Scene.h"
 
-#include "Map.h"
 #include "Player.h"
 
 class SceneGameplay : public Scene
@@ -23,7 +22,6 @@ public:
 
 private:
 
-    Map* map = nullptr;
     Player* player = nullptr;
 
     SDL_Rect camera = { 0,0,0,0 };

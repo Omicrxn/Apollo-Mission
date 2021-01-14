@@ -51,26 +51,14 @@
     <ClCompile Include="Source\SceneGameplay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Pathfinding.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Item.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Font.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GuiCheckBox.cpp">
-      <Filter>GuiControls</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GuiSlider.cpp">
-      <Filter>GuiControls</Filter>
     </ClCompile>
     <ClCompile Include="Source\Collisions.cpp">
       <Filter>Modules</Filter>
@@ -177,20 +165,8 @@
     <ClInclude Include="Source\SceneGameplay.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Pathfinding.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Font.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GuiCheckBox.h">
-      <Filter>GuiControls</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GuiSlider.h">
-      <Filter>GuiControls</Filter>
     </ClInclude>
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>

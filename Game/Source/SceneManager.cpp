@@ -45,6 +45,7 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	current = new SceneTitle();
+	
 	current->Load();
 
 	next = nullptr;
@@ -55,30 +56,6 @@ bool SceneManager::Start()
 // Called each loop iteration
 bool SceneManager::PreUpdate()
 {
-	/*
-	// L12b: Debug pathfing
-	static iPoint origin;
-	static bool originSelected = false;
-
-	int mouseX, mouseY;
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-
-	if(app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if(originSelected == true)
-		{
-			app->pathFinding->CreatePath(origin, p);
-			originSelected = false;
-		}
-		else
-		{
-			origin = p;
-			originSelected = true;
-		}
-	}
-	*/
 
 	return true;
 }
@@ -140,22 +117,6 @@ bool SceneManager::Update(float dt)
 		app->render->DrawRectangle({ 0, 0, 1280, 720 }, { 0, 0, 0, (unsigned char)(255.0f * transitionAlpha) });
 	}
 
-	// L12b: Debug pathfinding
-	/*
-	app->input->GetMousePosition(mouseX, mouseY);
-	iPoint p = app->render->ScreenToWorld(mouseX, mouseY);
-	p = app->map->WorldToMap(p.x, p.y);
-	p = app->map->MapToWorld(p.x, p.y);
-
-	const DynArray<iPoint>* path = app->pathFinding->GetLastPath();
-
-	for(uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		app->render->DrawTexture(debugTex, pos.x, pos.y);
-	}
-	*/
-
 	if (current->transitionRequired)
 	{
 		onTransition = true;
@@ -174,7 +135,8 @@ bool SceneManager::Update(float dt)
 		current->transitionRequired = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
+	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
+
 	return true;
 }
 
