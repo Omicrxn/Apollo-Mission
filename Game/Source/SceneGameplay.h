@@ -25,6 +25,9 @@ private:
     Player* player = nullptr;
 
     SDL_Rect camera = { 0,0,0,0 };
+
+    SDL_Texture* space = nullptr;
+    SDL_Rect spaceRect = { 0,0,1280,720 };
 };
 
 #endif // __SCENEGAMEPLAY_H__

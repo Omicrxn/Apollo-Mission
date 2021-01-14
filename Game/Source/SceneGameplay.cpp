@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Input.h"
 #include "Audio.h"
+#include "Textures.h"
 
 #include "EntityManager.h"
 
@@ -18,6 +19,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 {
 	// Load music
 	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	space = app->tex->Load("Assets/Textures/space.png");
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
@@ -74,6 +76,8 @@ bool SceneGameplay::Update(float dt)
 
 bool SceneGameplay::Draw()
 {
+	app->render->DrawTexture(space, 0, 0, &spaceRect);
+
 	player->Draw();
 
     return false;
@@ -82,6 +86,7 @@ bool SceneGameplay::Draw()
 bool SceneGameplay::Unload()
 {
 	// TODO: Unload all resources
+	app->tex->UnLoad(space);
 
     return false;
 }

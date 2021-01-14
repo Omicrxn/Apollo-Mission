@@ -60,7 +60,7 @@ public:
 	SDL_Rect viewport = { 0,0,0,0 };
 	SDL_Color background;
 
-	uint scale = 0;
+	uint scale = 1;
 };
 
 #endif // __RENDER_H__
