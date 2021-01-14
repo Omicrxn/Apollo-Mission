@@ -9,9 +9,9 @@ public:
 	static Physics* GetInsance();
 	~Physics();
 
-	void UpdateVelocity(iPoint& position, fPoint& velocity, float dt);
+	void UpdateVelocity(iPoint& position, fPoint& velocity, float& acceleration, float dt);
 
-	void AccelerationFromForce(fPoint force, uint mass);
+	fPoint AccelerationFromForce(fPoint force, uint mass);
 
 private:
 	static Physics* instance;

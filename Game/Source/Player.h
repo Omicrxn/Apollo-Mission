@@ -29,7 +29,9 @@ public:
     void SetTexture(SDL_Texture *tex);
 
     SDL_Rect GetBounds();
-
+private:
+    void HorizontalMove(bool isLeft);
+    void Propulsion();
 public:
 
     SDL_Texture* texture = nullptr;   // Player spritesheet
@@ -39,7 +41,9 @@ public:
 
     int width = 0, height = 0;
 
+    iPoint tempPosition = { 0, 0 };
     fPoint velocity = { 0.0f, 0.0f };
+    float acceleration = 0;
     bool readyToJump = true;
     bool hitObstacle = false;
 };

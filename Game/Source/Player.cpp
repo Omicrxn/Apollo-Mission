@@ -18,19 +18,14 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 bool Player::Update(float dt)
 {
-    #define GRAVITY 400.0f
-    #define PLAYER_MOVE_SPEED 200.0f
-    #define PLAYER_JUMP_SPEED 350.0f
-
-    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt);
-    if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) position.x -= (PLAYER_MOVE_SPEED * dt);
-    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt);
-
-    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_JUMP_SPEED * dt);
-
+    tempPosition = position;
+    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) HorizontalMove(true);
+    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) HorizontalMove(false);
+    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) Propulsion();
     // Calculate gravity acceleration
-    Physics::GetInsance()->UpdateVelocity(position,velocity,dt);
+    Physics::GetInsance()->UpdateVelocity(position, velocity, acceleration, dt);
+    //Temporal floor until coliders are added
+    if (position.y >= 600) position.y = 600;
     return true;
 }
 
@@ -45,6 +40,17 @@ bool Player::Draw()
 
     return false;
 }
+
+void Player::HorizontalMove(bool isLeft)
+{
+    isLeft ? velocity.x = -200.0f : velocity.x = 250.0f;
+}
+
+void Player::Propulsion()
+{
+    velocity.y = -400.0f;
+}
+
 
 void Player::SetTexture(SDL_Texture *tex)
 {
