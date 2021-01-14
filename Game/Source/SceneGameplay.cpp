@@ -32,7 +32,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	//entityManager->CreateEntity(EntityType::ITEM);
 
 	// Initialize player
-	player = new Player();
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->position = iPoint(200, 400);
 
     return false;
@@ -47,7 +47,9 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 
 bool SceneGameplay::Update(float dt)
 {
-	/*app->collisions->AddCollider({ 0,0,1280,100 }, Collider::Type::WALL);*/
+	//app->collisions->AddCollider({ 0,0,1280,50 }, Collider::Type::WALL, nullptr);
+	app->collisions->AddCollider({ 0,670,1280,50 }, Collider::Type::WALL, (Module*)app->entityManager);
+	app->collisions->debug = true;
 
 	// Collision detection: map vs player
 

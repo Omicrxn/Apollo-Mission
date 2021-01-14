@@ -1,14 +1,11 @@
 #include "Collisions.h"
-
 #include "App.h"
 #include "Render.h"
-
 #include "SDL/include/SDL_scancode.h"
 
 Collisions::Collisions() : Module()
 {
 	name = "collisions";
-
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		colliders[i] = nullptr;
@@ -16,50 +13,10 @@ Collisions::Collisions() : Module()
 
 	matrix[Collider::Type::WALL][Collider::Type::WALL] = false;
 	matrix[Collider::Type::WALL][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::WALL][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::WALL][Collider::Type::PLAYER_BULLET] = true;
-	matrix[Collider::Type::WALL][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::WEAPON] = true;
 
 
 	matrix[Collider::Type::PLAYER][Collider::Type::WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_BULLET] = false;
-	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SHOT] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::WEAPON] = false;
-
-	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_BULLET] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::ENEMY][Collider::Type::WEAPON] = true;
-
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::WALL] = true;
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::PLAYER_BULLET] = false;
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::PLAYER_BULLET][Collider::Type::WEAPON] = false;
-
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = false;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER_BULLET] = false;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WEAPON] = false;
-
-	matrix[Collider::Type::WEAPON][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::WEAPON][Collider::Type::ENEMY] = true;
-	matrix[Collider::Type::WEAPON][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::WEAPON][Collider::Type::PLAYER_BULLET] = false;
-	matrix[Collider::Type::WEAPON][Collider::Type::WALL] = true;
-	matrix[Collider::Type::WEAPON][Collider::Type::WEAPON] = false;
-
-	matrix[Collider::Type::ITEM_COIN][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::ITEM_HEART][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::CHECKPOINT][Collider::Type::PLAYER] = true;
 }
 
 Collisions::~Collisions() {}
@@ -99,10 +56,10 @@ bool Collisions::PreUpdate()
 
 			if (c1->Intersects(c2->rect))
 			{
-				if (matrix[c1->type][c2->type] && c1->listener)
+				if (matrix[c1->type][c2->type] && c1->listener != nullptr)
 					c1->listener->OnCollision(c1, c2);
 
-				if (matrix[c2->type][c1->type] && c2->listener)
+				if (matrix[c2->type][c1->type] && c2->listener != nullptr)
 					c2->listener->OnCollision(c2, c1);
 			}
 		}
@@ -143,27 +100,6 @@ void Collisions::DebugDraw()
 			break;
 		case Collider::Type::PLAYER: // Green
 			app->render->DrawRectangle(colliders[i]->rect, { 0, 255, 0, alpha });
-			break;
-		case Collider::Type::ENEMY: // Red
-			app->render->DrawRectangle(colliders[i]->rect, { 255, 0, 0, alpha });
-			break;
-		case Collider::Type::PLAYER_BULLET: // Yellow
-			app->render->DrawRectangle(colliders[i]->rect, { 255, 255, 0, alpha });
-			break;
-		case Collider::Type::ENEMY_SHOT: // Magenta
-			app->render->DrawRectangle(colliders[i]->rect, { 255, 0, 255, alpha });
-			break;
-		case Collider::Type::WEAPON: // GREY
-			app->render->DrawRectangle(colliders[i]->rect, { 128, 128, 128, alpha });
-			break;
-		case Collider::Type::ITEM_COIN: // DARK BLUE
-			app->render->DrawRectangle(colliders[i]->rect, { 0, 100, 128, alpha });
-			break;
-		case Collider::Type::ITEM_HEART: // DARK RED
-			app->render->DrawRectangle(colliders[i]->rect, { 128, 0, 0, alpha });
-			break;
-		case Collider::Type::CHECKPOINT: // DARK GREEN
-			app->render->DrawRectangle(colliders[i]->rect, { 0, 128, 0, alpha });
 			break;
 		}
 	}

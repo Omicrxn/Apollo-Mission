@@ -4,6 +4,8 @@
 #include "Point.h"
 #include "SString.h"
 
+#include "Collisions.h"
+
 enum class EntityType
 {
     PLAYER,
@@ -23,6 +25,10 @@ public:
         return true;
     }
 
+    const Collider* GetCollider() const { return collider; }
+
+    virtual void OnCollision(Collider* collider) {};
+
 public:
 
     EntityType type = EntityType::UNKNOWN;
@@ -35,6 +41,8 @@ public:
     iPoint position = { 0,0 };        // Use a float instead?
     bool renderable = false;
     //SDL_Texture* texture;
+
+    Collider* collider = nullptr;
 };
 
 #endif // __ENTITY_H__

@@ -157,3 +157,8 @@ bool SceneManager::CleanUp()
 
 	return true;
 }
+
+void SceneManager::OnCollision(Collider* c1, Collider* c2)
+{
+
+}

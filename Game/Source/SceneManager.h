@@ -33,6 +33,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void OnCollision(Collider* c1, Collider* c2);
 private:
 	
 	Scene* current = nullptr;

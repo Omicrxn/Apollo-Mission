@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Input.h"
 #include "Physics.h"
+
 Player::Player() : Entity(EntityType::PLAYER)
 {
     texture = NULL;
@@ -14,6 +15,9 @@ Player::Player() : Entity(EntityType::PLAYER)
     height = 32;
 
     // Define Player animations
+
+    // Player collider
+    collider = app->collisions->AddCollider({ position.x,position.y,width,height }, Collider::Type::PLAYER, (Module*)app->entityManager);
 }
 
 bool Player::Update(float dt)
@@ -24,8 +28,16 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) Propulsion();
     // Calculate gravity acceleration
     Physics::GetInsance()->UpdateVelocity(position, velocity, acceleration, dt);
+
     //Temporal floor until coliders are added
-    if (position.y >= 600) position.y = 600;
+    /*if (position.y >= 600) position.y = 600;*/
+
+    // Update collider position
+    if (collider != nullptr)
+    {
+        collider->SetPos(position.x, position.y);
+    }
+
     return true;
 }
 
@@ -60,4 +72,10 @@ void Player::SetTexture(SDL_Texture *tex)
 SDL_Rect Player::GetBounds()
 {
     return { position.x, position.y, width, height };
+}
+
+void Player::OnCollision(Collider* collider) 
+{
+    position = tempPosition;
+    velocity.y = 0;
 }

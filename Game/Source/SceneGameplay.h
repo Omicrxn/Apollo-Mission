@@ -5,6 +5,8 @@
 
 #include "Player.h"
 
+class Collider;
+
 class SceneGameplay : public Scene
 {
 public:
@@ -20,10 +22,11 @@ public:
 
     bool Unload();
 
+
+
 private:
 
     Player* player = nullptr;
-
     SDL_Rect camera = { 0,0,0,0 };
 
     SDL_Texture* space = nullptr;

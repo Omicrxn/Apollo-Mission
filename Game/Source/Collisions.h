@@ -13,13 +13,6 @@ struct Collider
 		NONE = -1,
 		WALL,
 		PLAYER,
-		ENEMY,
-		PLAYER_BULLET,
-		ENEMY_SHOT,
-		ITEM_COIN,
-		ITEM_HEART,
-		CHECKPOINT,
-		WEAPON,
 		MAX
 	};
 
