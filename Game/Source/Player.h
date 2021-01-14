@@ -39,7 +39,7 @@ public:
 
     int width = 0, height = 0;
 
-    float jumpSpeed = 0.0f;
+    fPoint velocity = { 0.0f, 0.0f };
     bool readyToJump = true;
     bool hitObstacle = false;
 };

@@ -50,30 +50,10 @@ bool SceneGameplay::Update(float dt)
 	/*app->collisions->AddCollider({ 0,0,1280,100 }, Collider::Type::WALL);*/
 
 	// Collision detection: map vs player
-	//iPoint tempPlayerPosition = player->position;
 
-	//player->Update(dt);
+	iPoint tempPlayerPosition = player->position;
 
-	//// Check if updated player position collides with next tile
-	//// IMPROVEMENT: Just check adyacent tiles to player
-	//for (int y = 0; y < map->data.height; y++)
-	//{
-	//	for (int x = 0; x < map->data.width; x++)
-	//	{
-	//		if ((map->data.layers[2]->Get(x, y) >= 484) && 
-	//			CheckCollision(map->GetTilemapRec(x, y), player->GetBounds()))
-	//		{
-	//			player->position = tempPlayerPosition;
-	//			player->jumpSpeed = 0.0f;
-	//			break;
-	//		}
-	//	}
-	//}
-
-	// L02: DONE 3: Request Load / Save when pressing L/S
-	//if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
-	//if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
-
+	player->Update(dt);
 	return true;
 }
 

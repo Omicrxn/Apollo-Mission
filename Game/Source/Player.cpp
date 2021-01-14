@@ -3,12 +3,12 @@
 #include "App.h"
 #include "Render.h"
 #include "Input.h"
-
+#include "Physics.h"
 Player::Player() : Entity(EntityType::PLAYER)
 {
     texture = NULL;
     position = iPoint(12 * 16, 27 * 16);
-    jumpSpeed = 200.0f;
+    velocity.y = 200.0f;
 
     width = 16;
     height = 32;
@@ -30,9 +30,7 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_JUMP_SPEED * dt);
 
     // Calculate gravity acceleration
-    jumpSpeed += GRAVITY * dt;
-    position.y += (jumpSpeed * dt);
-
+    Physics::GetInsance()->UpdateVelocity(position,velocity,dt);
     return true;
 }
 
