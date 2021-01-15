@@ -9,8 +9,7 @@
 
 #include "PugiXml/src/pugixml.hpp"
 
-#define CONFIG_FILENAME		"config.xml"
-#define SAVE_STATE_FILENAME "save_game.xml"
+#define CONFIG_FILENAME "config.xml"
 
 // Modules
 class Window;
@@ -53,10 +52,6 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-    // L02: DONE 1: Create methods to request Load / Save
-	void LoadGameRequest();
-	void SaveGameRequest() const;
-
 	// Load config file
 	// NOTE: It receives config document
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
@@ -77,10 +72,6 @@ private:
 
 	// Call modules after each loop iteration
 	bool PostUpdate();
-
-	// Load / Save
-	bool LoadGame();
-	bool SaveGame() const;
 
 public:
 
@@ -103,17 +94,12 @@ private:
 
 	List<Module *> modules;
 
-	// L01: DONE 2: Create new variables from pugui namespace
 	// NOTE: Redesigned LoadConfig() to avoid storing this variables
 	//pugi::xml_document configFile;
 	//pugi::xml_node config;
 	//pugi::xml_node configApp;
 
-	mutable bool saveGameRequested;
-	bool loadGameRequested;
-
-	// L07: DONE 4: Calculate some timing measures
-	// required variables are provided:
+	// Calculate some timing measures:
 	PerfTimer ptimer;
 	uint64 frameCount = 0;
 
@@ -125,7 +111,10 @@ private:
 	float dt = 0.0f;
 
 	int	cappedMs = -1;
+
+	bool debug = false;
 };
+
 extern App* app;
 
 #endif	// __APP_H__

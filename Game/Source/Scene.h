@@ -9,8 +9,7 @@ enum class SceneType
 {
     LOGO,
     TITLE,
-    GAMEPLAY,
-    ENDING
+    GAMEPLAY
 };
 
 class Scene
@@ -54,12 +53,11 @@ public:
 public:
 
     bool active = true;
-    SString name = "";         // Scene name identifier?
 
     // Possible properties
     bool loaded = false;
-    // TODO: Transition animation properties
 
+    // Transition animation properties
     bool transitionRequired = false;
     SceneType nextScene;
 };

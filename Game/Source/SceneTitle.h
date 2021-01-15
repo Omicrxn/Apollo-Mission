@@ -37,9 +37,10 @@ private:
 
     SDL_Texture* atlasGUITexture = nullptr;
 
-    GuiButton* btnStart = nullptr;
-    GuiButton* btnExit = nullptr;
-    GuiButton* btnCredits = nullptr;
+    GuiButton* buttonStart = nullptr;
+    GuiButton* buttonExit = nullptr;
+    GuiButton* buttonCredits = nullptr;
+    GuiButton* buttonReturn = nullptr;
 
     MenuSelection menuCurrentSelection = MenuSelection::NONE;
 

@@ -1,12 +1,9 @@
 #ifndef __GUICONTROL_H__
 #define __GUICONTROL_H__
 
-#include "Input.h"
-#include "Render.h"
 #include "Scene.h"
 
 #include "Point.h"
-#include "SString.h"
 
 #include "SDL/include/SDL.h"
 
@@ -30,13 +27,11 @@ public:
 
     GuiControl(GuiControlType type, uint32 id) : type(type), id(id), state(GuiControlState::NORMAL) {}
 
-    GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :
+    GuiControl(GuiControlType type, SDL_Rect bounds) :
         type(type),
         state(GuiControlState::NORMAL),
-        bounds(bounds),
-        text(text) 
+        bounds(bounds)
     {
-        color.r = 255; color.g = 255; color.b = 255;
         texture = NULL;
     }
 
@@ -53,7 +48,6 @@ public:
     void SetTexture(SDL_Texture* tex)
     {
         texture = tex;
-        section = { 0, 0, 0, 0 };
     }
 
     void SetObserver(Scene* module)
@@ -70,16 +64,11 @@ public:
 
     uint32 id;
     GuiControlType type = GuiControlType::NONE;
-    GuiControlState state = GuiControlState::DISABLED;
+    GuiControlState state = GuiControlState::NORMAL;
 
-    SString text = "";           // Control text (if required)
-    SDL_Rect bounds = { 0,0,0,0 };       // Position and size
-    SDL_Color color;        // Tint color
+    SDL_Rect bounds = { 0,0,0,0 };     // Position and size
 
     SDL_Texture* texture = nullptr;   // Texture atlas reference
-    SDL_Rect section = { 0,0,0,0 };       // Texture atlas base section
-
-    //Font font;              // Text font
 
     Scene* observer = nullptr;        // Observer module (it should probably be an array/list)
 };

@@ -3,12 +3,19 @@
 #include "App.h"
 #include "Render.h"
 #include "Input.h"
+#include "Audio.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, int hoverFx, int clickFx) : GuiControl(GuiControlType::BUTTON, id)
 {
     this->bounds = bounds;
-    this->text = text;
+    this->hoverFx = hoverFx;
+    this->clickFx = clickFx;
 
+    whiteButton = { 0,0,190,49 };
+    brownButton = { 0,49,190,49 };
+    greyButton = { 0,188,190,49 };
+    yellowButton = { 0,282,190,49 };
+    
     isFocusing = false;
 }
 
@@ -32,7 +39,7 @@ bool GuiButton::Update(float dt)
             if (!isFocusing)
             {
                 isFocusing = true;
-                //audio->PlayFx(hoverFx);
+                app->audio->PlayFx(hoverFx);
             }
 
             if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
@@ -43,7 +50,7 @@ bool GuiButton::Update(float dt)
             if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
             {
                 state = GuiControlState::PRESSED;
-                //audio->PlayFx(clickFx);
+                app->audio->PlayFx(clickFx);
             }
 
             // If mouse button pressed -> Generate event!
@@ -77,7 +84,7 @@ bool GuiButton::Draw()
         app->render->DrawTextureWithoutCamera(texture, bounds.x, bounds.y, &yellowButton);
         break;
     case GuiControlState::PRESSED: 
-        app->render->DrawTextureWithoutCamera(texture, bounds.x, bounds.y, &brownButton);
+        app->render->DrawTextureWithoutCamera(texture, bounds.x, bounds.y, &whiteButton);
         break;
     default:
         break;

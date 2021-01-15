@@ -6,23 +6,13 @@
 #include "Window.h"
 #include "Textures.h"
 #include "Font.h"
-
-#include "EntityManager.h"
+#include "SceneManager.h"
+#include "Audio.h"
 
 #include "SDL/include/SDL.h"
 
 SceneTitle::SceneTitle()
 {
-    // GUI: Initialize required controls for the screen
-    btnStart = new GuiButton(1, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 20, 190, 40 }, "START");
-    btnStart->SetObserver(this);
-
-    btnCredits = new GuiButton(2, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 80, 190, 40 }, "CREDITS");
-    btnCredits->SetObserver(this);
-
-    btnExit = new GuiButton(3, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 140, 190, 40 }, "EXIT");
-    btnExit->SetObserver(this);
-
     mousePos = { 0,0 };
     clicking = false;
     hoverFx = -1;
@@ -40,13 +30,32 @@ SceneTitle::~SceneTitle()
 
 bool SceneTitle::Load()
 {
+    atlasGUITexture = app->tex->Load("Assets/Textures/UI/ui_buttons_sheet.png");
+
+    hoverFx = app->audio->LoadFx("Assets/Audio/Fx/bong.ogg");
+    clickFx = app->audio->LoadFx("Assets/Audio/Fx/click.ogg");
+
+    // GUI: Initialize required controls for the screen
+    buttonStart = new GuiButton(1, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 20, 190, 40 }, hoverFx, clickFx);
+    buttonStart->SetObserver(this);
+
+    buttonCredits = new GuiButton(2, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 80, 190, 40 }, hoverFx, clickFx);
+    buttonCredits->SetObserver(this);
+
+    buttonExit = new GuiButton(3, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, (int)app->win->GetWindowHeight() / 2 + 140, 190, 40 }, hoverFx, clickFx);
+    buttonExit->SetObserver(this);
+
+    buttonReturn = new GuiButton(4, { (int)app->win->GetWindowWidth() / 2 - 190 / 2, 623, 190, 40 }, hoverFx, clickFx);
+    buttonReturn->SetObserver(this);
+
     font = new Font("Assets/Fonts/future_font.xml");
 
-    btnStart->SetTexture(atlasGUITexture);
-    btnCredits->SetTexture(atlasGUITexture);
-    btnExit->SetTexture(atlasGUITexture);
+    buttonStart->SetTexture(atlasGUITexture);
+    buttonCredits->SetTexture(atlasGUITexture);
+    buttonExit->SetTexture(atlasGUITexture);
+    buttonReturn->SetTexture(atlasGUITexture);
 
-    app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+    app->audio->PlayMusic("Assets/Audio/Music/menu.wav");
 
     return false;
 }
@@ -55,17 +64,21 @@ bool SceneTitle::Update(float dt)
 {
     if (menuCurrentSelection == MenuSelection::NONE)
     {
-        //btnStart->Update(dt, hoverFx, clickFx);
-        //btnCredits->Update(dt, hoverFx, clickFx);
-        //btnExit->Update(dt, hoverFx, clickFx);
+        buttonStart->Update(dt);
+        buttonCredits->Update(dt);
+        buttonExit->Update(dt);
     }
     else if (menuCurrentSelection == MenuSelection::START)
     {
         TransitionToScene(SceneType::GAMEPLAY);
     }
+    else if (menuCurrentSelection == MenuSelection::CREDITS)
+    {
+        buttonReturn->Update(dt);
+    }
     else if (menuCurrentSelection == MenuSelection::EXIT)
     {
-        //app->sceneManager->menuExitCall = true;
+        app->sceneManager->menuExitCall = true;
     }
 
     if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
@@ -89,37 +102,47 @@ bool SceneTitle::Draw()
     int offset = 3;
     if (menuCurrentSelection == MenuSelection::NONE)
     {
-        btnStart->Draw();
-        btnCredits->Draw();
-        btnExit->Draw();
+        buttonStart->Draw();
+        buttonCredits->Draw();
+        buttonExit->Draw();
 
-        app->render->DrawText(font, "APOLLO MISSION", 370 + offset, 250 + offset, 75, 13, { 105,105,105,255 });
-        app->render->DrawText(font, "APOLLO MISSION", 370, 250, 75, 13, { 255,255,255,255 });
+        app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4 + offset, (int)app->win->GetWindowHeight() / 2 - 100 + offset, 75, 13, { 105,105,105,255 });
+        app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4, (int)app->win->GetWindowHeight() / 2 - 100, 75, 13, { 255,255,255,255 });
+
+        app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65 + offset, (int)app->win->GetWindowHeight() / 2 + 23 + offset, 40, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65, (int)app->win->GetWindowHeight() / 2 + 23, 40, 5, { 255,255,255,255 });
+
+        app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83 + offset, (int)app->win->GetWindowHeight() / 2 + 83 + offset, 40, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83, (int)app->win->GetWindowHeight() / 2 + 83, 40, 5, { 255,255,255,255 });
+
+        app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43 + offset, (int)app->win->GetWindowHeight() / 2 + 143 + offset, 40, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43, (int)app->win->GetWindowHeight() / 2 + 143, 40, 5, { 255,255,255,255 });
     }
     else if (menuCurrentSelection == MenuSelection::CREDITS)
     {
-        app->render->DrawText(font, "AUTHORS:", 570 + offset, 190 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "AUTHORS:", 570, 190, 40, 5, { 255,255,255,255 });
-        app->render->DrawText(font, "ALEJANDRO AVILA", 490 + offset, 230 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "ALEJANDRO AVILA", 490, 230, 40, 5, { 255,255,255,255 });
-        app->render->DrawText(font, "BOSCO BARBER", 520 + offset, 270 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "BOSCO BARBER", 520, 270, 40, 5, { 255,255,255,255 });
-        app->render->DrawText(font, "YERAY TARIFA", 520 + offset, 310 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "YERAY TARIFA", 520, 310, 40, 5, { 255,255,255,255 });
+        app->render->DrawText(font, "AUTHORS:", 150 + offset, 130 + offset, 30, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "AUTHORS:", 150, 130, 30, 5, { 255,255,255,255 });
+        app->render->DrawText(font, "ALEJANDRO AVILA", 150 + offset, 170 + offset, 30, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "ALEJANDRO AVILA", 150, 170, 30, 5, { 255,255,255,255 });
+        app->render->DrawText(font, "BOSCO BARBER", 150 + offset, 210 + offset, 30, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "BOSCO BARBER", 150, 210, 30, 5, { 255,255,255,255 });
+        app->render->DrawText(font, "YERAY TARIFA", 150 + offset, 250 + offset, 30, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "YERAY TARIFA", 150, 250, 30, 5, { 255,255,255,255 });
 
         offset = 2;
-        app->render->DrawText(font, "This project is licensed under an unmodified MIT license, which is an", 150 + offset, 400 + offset, 30, 3, { 105,105,105,255 });
-        app->render->DrawText(font, "This project is licensed under an unmodified MIT license, which is an", 150, 400, 30, 3, { 255,255,255,255 });
-        app->render->DrawText(font, "OSI-certified license that allows static linking with closed source software.", 150 + offset, 430 + offset, 30, 3, { 105,105,105,255 });
-        app->render->DrawText(font, "OSI-certified license that allows static linking with closed source software.", 150, 430, 30, 3, { 255,255,255,255 });
-        app->render->DrawText(font, "The assets' work of this project is licensed under the", 150 + offset, 490 + offset, 30, 3, { 105,105,105,255 });
-        app->render->DrawText(font, "The assets' work of this project is licensed under the", 150, 490, 30, 3, { 255,255,255,255 });
-        app->render->DrawText(font, "Creative Commons Attribution 4.0 International License.", 150 + offset, 520 + offset, 30, 3, { 105,105,105,255 });
-        app->render->DrawText(font, "Creative Commons Attribution 4.0 International License.", 150, 520, 30, 3, { 255,255,255,255 });
+        app->render->DrawText(font, "This project is licensed under an unmodified MIT license, which is an OSI-", 150 + offset, 380 + offset, 25, 3, { 105,105,105,255 });
+        app->render->DrawText(font, "This project is licensed under an unmodified MIT license, which is an OSI-", 150, 380, 25, 3, { 255,255,255,255 });
+        app->render->DrawText(font, "-certified license that allows static linking with closed source software.", 150 + offset, 410 + offset, 25, 3, { 105,105,105,255 });
+        app->render->DrawText(font, "-certified license that allows static linking with closed source software.", 150, 410, 25, 3, { 255,255,255,255 });
+        app->render->DrawText(font, "The assets' work of this project is licensed under the Creative Commons", 150 + offset, 470 + offset, 25, 3, { 105,105,105,255 });
+        app->render->DrawText(font, "The assets' work of this project is licensed under the Creative Commons", 150, 470, 25, 3, { 255,255,255,255 });
+        app->render->DrawText(font, "Attribution 4.0 International License.", 150 + offset, 500 + offset, 25, 3, { 105,105,105,255 });
+        app->render->DrawText(font, "Attribution 4.0 International License.", 150, 500, 25, 3, { 255,255,255,255 });
 
         offset = 3;
-        app->render->DrawText(font, "PRESS 'B' TO RETURN", 475 + offset, 623 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "PRESS 'B' TO RETURN", 475, 623, 40, 5, { 255,255,255,255 });
+        buttonReturn->Draw();
+        app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80 + offset, 625 + offset, 40, 5, { 105,105,105,255 });
+        app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80, 625, 40, 5, { 255,255,255,255 });
     }
 
     if (clicking)
@@ -135,9 +158,10 @@ bool SceneTitle::Unload()
     app->tex->UnLoad(atlasGUITexture);
     atlasGUITexture = nullptr;
 
-    delete btnStart;
-    delete btnCredits;
-    delete btnExit;
+    delete buttonStart;
+    delete buttonCredits;
+    delete buttonExit;
+    delete buttonReturn;
 
     delete font;
 
@@ -153,7 +177,8 @@ bool SceneTitle::OnGuiMouseClickEvent(GuiControl* control)
     {
         if (control->id == 1) menuCurrentSelection = MenuSelection::START;
         else if (control->id == 2) menuCurrentSelection = MenuSelection::CREDITS;
-        else if (control->id == 3) menuCurrentSelection = MenuSelection::EXIT; // TODO: Exit request
+        else if (control->id == 3) menuCurrentSelection = MenuSelection::EXIT;
+        else if (control->id == 4) menuCurrentSelection = MenuSelection::NONE;
     }
 
     return true;

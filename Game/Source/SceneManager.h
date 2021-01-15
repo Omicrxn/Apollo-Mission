@@ -4,8 +4,6 @@
 #include "Module.h"
 #include "Scene.h"
 
-class GuiButton;
-
 class SceneManager : public Module
 {
 public:
@@ -33,7 +31,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void OnCollision(Collider* c1, Collider* c2);
+public:
+
+	bool menuExitCall = false;
+
 private:
 	
 	Scene* current = nullptr;

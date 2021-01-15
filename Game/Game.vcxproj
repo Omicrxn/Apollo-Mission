@@ -94,7 +94,6 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
-    <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -102,7 +101,6 @@
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\SceneEnding.cpp" />
     <ClCompile Include="Source\SceneGameplay.cpp" />
     <ClCompile Include="Source\SceneLogo.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -118,7 +116,6 @@
     <ClInclude Include="Source\Font.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiControl.h" />
-    <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Physics.h" />
@@ -126,7 +123,6 @@
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\SceneEnding.h" />
     <ClInclude Include="Source\SceneGameplay.h" />
     <ClInclude Include="Source\SceneLogo.h" />
     <ClInclude Include="Source\SceneManager.h" />

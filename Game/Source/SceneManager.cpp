@@ -7,9 +7,6 @@
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 #include "SceneGameplay.h"
-#include "SceneEnding.h"
-
-#include "GuiButton.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -26,6 +23,8 @@ SceneManager::SceneManager() : Module()
 	onTransition = false;
 	fadeOutCompleted = false;
 	transitionAlpha = 0.0f;;
+
+	menuExitCall = false;
 }
 
 // Destructor
@@ -56,6 +55,8 @@ bool SceneManager::Start()
 // Called each loop iteration
 bool SceneManager::PreUpdate()
 {
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || menuExitCall == true) 
+		return false;
 
 	return true;
 }
@@ -65,11 +66,6 @@ bool SceneManager::Update(float dt)
 {
 	if (!onTransition)
 	{
-		//if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) render->camera.y -= 1;
-		//if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) render->camera.y += 1;
-		//if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) render->camera.x -= 1;
-		//if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) render->camera.x += 1;
-
 		current->Update(dt);
 	}
 	else
@@ -128,14 +124,11 @@ bool SceneManager::Update(float dt)
 			case SceneType::LOGO: next = new SceneLogo(); break;
 			case SceneType::TITLE: next = new SceneTitle(); break;
 			case SceneType::GAMEPLAY: next = new SceneGameplay(); break;
-			case SceneType::ENDING: next = new SceneEnding(); break;
 			default: break;
 		}
 
 		current->transitionRequired = false;
 	}
-
-	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
 
 	return true;
 }
@@ -153,12 +146,8 @@ bool SceneManager::CleanUp()
 {
 	LOG("Freeing scene");
 
-	if (current != nullptr) current->Unload();
+	if (current != nullptr) 
+		current->Unload();
 
 	return true;
-}
-
-void SceneManager::OnCollision(Collider* c1, Collider* c2)
-{
-
 }

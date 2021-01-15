@@ -27,9 +27,6 @@
     <ClCompile Include="Source\GuiButton.cpp">
       <Filter>GuiControls</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GuiManager.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneTitle.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneEnding.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneGameplay.cpp">
@@ -141,9 +135,6 @@
     <ClInclude Include="Source\GuiControl.h">
       <Filter>GuiControls</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GuiManager.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\EntityManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -157,9 +148,6 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneLogo.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneEnding.h">
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGameplay.h">

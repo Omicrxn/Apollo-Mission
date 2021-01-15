@@ -43,9 +43,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(sceneManager);
 
-
 	// Render last to swap buffer
 	AddModule(render);
+
+	debug = false;
 	
 	PERF_PEEK(ptimer);
 }
@@ -94,9 +95,10 @@ bool App::Awake()
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
 
-        // L08: DONE 1: Read from config file your framerate cap
-		int cap = configApp.attribute("framerate_cap").as_int(-1);
-		if (cap > 0) cappedMs = 1000 / cap;
+        // Read from config file the framerate cap
+		int cap = configApp.child("framerate_cap").attribute("value").as_int(-1);
+		if (cap > 0) 
+			cappedMs = 1000 / cap;
 	}
 
 	if (ret == true)
@@ -134,7 +136,7 @@ bool App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
-	
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -185,21 +187,20 @@ void App::PrepareUpdate()
     // L08: DONE 4: Calculate the dt: differential time since last frame
 	dt = frameTime.ReadSec();
 	frameTime.Start();
+
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		debug = !debug;
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// L02: DONE 1: This is a good place to call Load / Save methods
-	if (loadGameRequested == true) LoadGame();
-	if (saveGameRequested == true) SaveGame();
-    
-    // L07: DONE 4: Now calculate:
 	// Amount of frames since startup
 	// Amount of time since game start (use a low resolution timer)
 	// Average FPS for the whole game life
 	// Amount of ms took the last update
 	// Amount of frames during the last second
+
 	if (lastSecFrameTime.Read() > 1000)
 	{
 		lastSecFrameTime.Start();
@@ -212,11 +213,14 @@ void App::FinishUpdate()
 	uint32 lastFrameMs = frameTime.Read();
 	uint32 framesOnLastUpdate = prevLastSecFrameCount;
 
-	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
+	static char titleDebug[256];
+	sprintf_s(titleDebug, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
 			  averageFps, lastFrameMs, framesOnLastUpdate, dt, secondsSinceStartup, frameCount);
-
-	//app->win->SetTitle(title);
+		
+	if(debug)
+		app->win->SetTitle(titleDebug);
+	else
+		app->win->SetTitle("Apollo Mission - B.A.T. Studios");
 
     // L08: DONE 2: Use SDL_Delay to make sure you get your capped framerate
 	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
@@ -336,44 +340,4 @@ const char* App::GetTitle() const
 const char* App::GetOrganization() const
 {
 	return organization.GetString();
-}
-
-// Load / Save
-void App::LoadGameRequest()
-{
-	// NOTE: We should check if SAVE_STATE_FILENAME actually exist
-	loadGameRequested = true;
-}
-
-// ---------------------------------------
-void App::SaveGameRequest() const
-{
-	// NOTE: We should check if SAVE_STATE_FILENAME actually exist and... should we overwriten
-	saveGameRequested = true;
-}
-
-// ---------------------------------------
-// L02: TODO 5: Create a method to actually load an xml file
-// then call all the modules to load themselves
-bool App::LoadGame()
-{
-	bool ret = false;
-
-	//...
-
-	loadGameRequested = false;
-
-	return ret;
-}
-
-// L02: TODO 7: Implement the xml save method for current state
-bool App::SaveGame() const
-{
-	bool ret = true;
-
-	//...
-
-	saveGameRequested = false;
-
-	return ret;
 }

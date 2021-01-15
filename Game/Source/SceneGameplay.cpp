@@ -19,7 +19,7 @@ SceneGameplay::~SceneGameplay()
 bool SceneGameplay::Load() /*EntityManager entityManager)*/
 {
 	// Load music
-	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/Audio/Music/music_space.wav");
 	space = app->tex->Load("Assets/Textures/space.png");
 
 	// Load game entities
