@@ -47,6 +47,9 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 
 bool SceneGameplay::Update(float dt)
 {
+	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	//	TransitionToScene(SceneType::TITLE);
+
 	//app->collisions->AddCollider({ 0,0,1280,50 }, Collider::Type::WALL, nullptr);
 	app->collisions->AddCollider({ 0,670,1280,50 }, Collider::Type::WALL, (Module*)app->entityManager);
 	app->collisions->debug = true;
@@ -56,6 +59,7 @@ bool SceneGameplay::Update(float dt)
 	iPoint tempPlayerPosition = player->position;
 
 	player->Update(dt);
+
 	return true;
 }
 
