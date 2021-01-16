@@ -60,12 +60,32 @@ bool SceneGameplay::Update(float dt)
 
 	player->Update(dt);
 
+	// Keeping the player in the scenario bounds
+	if (player->position.x <= 0)
+	{
+		player->position.x = 0;
+	}
+	else if (player->position.x >= 1280 - 16)
+	{
+		player->position.x = 1280 - 16;
+	}
+
+	// Update camera position
+	if (player->position.y > 360)
+	{
+		app->render->camera.y = 0;
+	}
+	else if (player->position.y <= 360)
+	{
+		app->render->camera.y = -(player->position.y - 360);
+	}
+
 	return true;
 }
 
 bool SceneGameplay::Draw()
 {
-	app->render->DrawTexture(space, 0, 0, &spaceRect);
+	app->render->DrawTexture(space, 0, -1440, &spaceRect);
 
 	player->Draw();
 

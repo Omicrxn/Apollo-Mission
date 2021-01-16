@@ -30,7 +30,7 @@ private:
     SDL_Rect camera = { 0,0,0,0 };
 
     SDL_Texture* space = nullptr;
-    SDL_Rect spaceRect = { 0,0,1280,720 };
+    SDL_Rect spaceRect = { 0,0,1280,2160 };
 };
 
 #endif // __SCENEGAMEPLAY_H__
