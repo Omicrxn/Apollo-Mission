@@ -181,51 +181,38 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-    frameCount++;
     lastSecFrameCount++;
 
-    // L08: DONE 4: Calculate the dt: differential time since last frame
-	dt = frameTime.ReadSec();
-	frameTime.Start();
+	dt = frameTimer.ReadSec();
+	frameTimer.Start();
 
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	if (input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		debug = !debug;
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// Amount of frames since startup
-	// Amount of time since game start (use a low resolution timer)
-	// Average FPS for the whole game life
-	// Amount of ms took the last update
-	// Amount of frames during the last second
-
-	if (lastSecFrameTime.Read() > 1000)
+	if (lastSecFrameTimer.Read() > 1000)
 	{
-		lastSecFrameTime.Start();
+		lastSecFrameTimer.Start();
 		prevLastSecFrameCount = lastSecFrameCount;
 		lastSecFrameCount = 0;
 	}
 
-	float averageFps = float(frameCount) / startupTime.ReadSec();
-	float secondsSinceStartup = startupTime.ReadSec();
-	uint32 lastFrameMs = frameTime.Read();
-	uint32 framesOnLastUpdate = prevLastSecFrameCount;
+	uint32 lastFrameMs = frameTimer.Read();
+	uint32 framesOnLastSec = prevLastSecFrameCount;
 
 	static char titleDebug[256];
-	sprintf_s(titleDebug, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-			  averageFps, lastFrameMs, framesOnLastUpdate, dt, secondsSinceStartup, frameCount);
-		
+	sprintf_s(titleDebug, 256, "| Last Second frames: %i | Last Frame Ms: %02u | Last dt: %.3f | Framerate Cap: %d |", framesOnLastSec, lastFrameMs, dt, (1000 / cappedMs));
+	
 	if(debug)
-		app->win->SetTitle(titleDebug);
+		win->SetTitle(titleDebug);
 	else
-		app->win->SetTitle("Apollo Mission - B.A.T. Studios");
+		win->SetTitle("Apollo Mission - B.A.T. Studios");
 
-    // L08: DONE 2: Use SDL_Delay to make sure you get your capped framerate
 	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
 	{
-		// L08: DONE 3: Measure accurately the amount of time SDL_Delay actually waits compared to what was expected
 		PerfTimer pt;
 		SDL_Delay(cappedMs - lastFrameMs);
 		LOG("We waited for %d milliseconds and got back in %f", cappedMs - lastFrameMs, pt.ReadMs());

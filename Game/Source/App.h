@@ -101,11 +101,9 @@ private:
 
 	// Calculate some timing measures:
 	PerfTimer ptimer;
-	uint64 frameCount = 0;
 
-	Timer startupTime;
-	Timer frameTime;
-	Timer lastSecFrameTime;
+	Timer frameTimer;
+	Timer lastSecFrameTimer;
 	uint32 lastSecFrameCount = 0;
 	uint32 prevLastSecFrameCount = 0;
 	float dt = 0.0f;
