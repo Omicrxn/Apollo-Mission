@@ -44,7 +44,7 @@ public:
     PlayerAnim currentAnim;
 
     int width = 0, height = 0;
-
+    SDL_Rect rect = { 0,0,0,0 };
     iPoint tempPosition = { 0, 0 };
     fPoint velocity = { 0.0f, 0.0f };
     float acceleration = 0;

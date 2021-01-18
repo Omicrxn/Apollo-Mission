@@ -94,6 +94,8 @@ bool Render::CleanUp()
 	return true;
 }
 
+
+
 void Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
@@ -119,14 +121,22 @@ iPoint Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
+void Render::CameraFollow(iPoint position)
+{
+	camera.y = position.y - (app->win->GetWindowHeight()/2);
+
+
+
+}
+
 // Draw to screen
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY, SDL_RendererFlip flip) const
 {
 	bool ret = true;
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.x = ( x * scale) - (int)(camera.x * speed);
+	rect.y = (y * scale) - (int)(camera.y * speed);
 
 	if(section != NULL)
 	{
@@ -209,8 +219,9 @@ bool Render::DrawRectangle(const SDL_Rect& rect, SDL_Color color, bool filled) c
 
 	SDL_Rect rec(rect);
 
+	rec.x = (rect.x * scale) - (int)(camera.x);
+	rec.y = (rect.y * scale) - (int)(camera.y);
 	int result = (filled) ? SDL_RenderFillRect(renderer, &rec) : SDL_RenderDrawRect(renderer, &rec);
-
 	if(result != 0)
 	{
 		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
