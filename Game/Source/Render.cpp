@@ -124,9 +124,6 @@ iPoint Render::ScreenToWorld(int x, int y) const
 void Render::CameraFollow(iPoint position)
 {
 	camera.y = position.y - (app->win->GetWindowHeight()/2);
-
-
-
 }
 
 // Draw to screen

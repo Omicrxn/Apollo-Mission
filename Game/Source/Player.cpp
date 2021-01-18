@@ -38,6 +38,8 @@ bool Player::Update(float dt)
     {
         collider->SetPos(position.x, position.y);
     }
+    //follow if over the ground
+    if (position.y < 357)
     app->render->CameraFollow(position);
 
     return true;

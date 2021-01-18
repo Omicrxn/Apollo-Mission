@@ -33,7 +33,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->position = iPoint(200, 400);
+	player->position = iPoint(600, 400);
 	player->SetTexture(app->tex->Load("Assets/Textures/space_spritesheet.png"));
 
     return false;
