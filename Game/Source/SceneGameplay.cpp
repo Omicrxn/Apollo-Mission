@@ -33,9 +33,9 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->position = iPoint(600, 400);
 	player->SetTexture(app->tex->Load("Assets/Textures/space_spritesheet.png"));
-
+	world = new World();
+	world->AddBody(player->body);
     return false;
 }
 
@@ -50,14 +50,10 @@ bool SceneGameplay::Update(float dt)
 {
 	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	//	TransitionToScene(SceneType::TITLE);
-
+	world->Update(dt);
 	//app->collisions->AddCollider({ 0,0,1280,50 }, Collider::Type::WALL, nullptr);
 	app->collisions->AddCollider({ 0,670,1280,50 }, Collider::Type::WALL, (Module*)app->entityManager);
 	app->collisions->debug = true;
-
-	// Collision detection: map vs player
-
-	iPoint tempPlayerPosition = player->position;
 
 	player->Update(dt);
 

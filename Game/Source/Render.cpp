@@ -121,7 +121,7 @@ iPoint Render::ScreenToWorld(int x, int y) const
 	return ret;
 }
 
-void Render::CameraFollow(iPoint position)
+void Render::CameraFollow(Vec2f position)
 {
 	camera.y = position.y - (app->win->GetWindowHeight()/2);
 }

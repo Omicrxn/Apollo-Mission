@@ -4,6 +4,7 @@
 #include "Scene.h"
 
 #include "Player.h"
+#include "World.h"
 
 class Collider;
 
@@ -28,7 +29,7 @@ private:
 
     Player* player = nullptr;
     SDL_Rect camera = { 0,0,0,0 };
-
+    World* world = nullptr;
     SDL_Texture* space = nullptr;
     SDL_Rect spaceRect = { 0,0,1280,2160 };
 };

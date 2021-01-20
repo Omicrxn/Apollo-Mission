@@ -1,5 +1,5 @@
 #include "Physics.h"
-
+#include "Vec2.h"
 Physics* Physics::instance = nullptr;
 
 Physics* Physics::GetInsance()
@@ -21,8 +21,4 @@ void Physics::UpdateVelocity(iPoint& position, fPoint& velocity, float& accelera
 	velocity.y = velocity.y + GRAVITY * dt;
 }
 
-fPoint Physics::AccelerationFromForce(fPoint force, uint mass)
-{
-	
-	return fPoint(force.x / mass, force.y / mass);
-}
+

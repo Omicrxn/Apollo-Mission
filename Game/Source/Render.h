@@ -4,6 +4,7 @@
 #include "Module.h"
 
 #include "Point.h"
+#include "Vec2.h"
 #include "Font.h"
 
 #include "SDL/include/SDL.h"
@@ -36,7 +37,7 @@ public:
 	void ResetViewPort();
 	iPoint ScreenToWorld(int x, int y) const;
 
-	void CameraFollow(iPoint position);
+	void CameraFollow(Vec2f position);
 	// Drawing
 	bool DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	bool DrawRectangle(const SDL_Rect& rect, SDL_Color color, bool filled = true) const;
