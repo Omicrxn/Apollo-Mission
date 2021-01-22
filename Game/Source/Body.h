@@ -34,7 +34,6 @@ public:
 	void AddBuoyancy(float fluidMass);
 	void AddDrag();
 	void AddLift(float atmosphereDensity, float surface);
-	//void AddHydro
 private:
 
 	void EulerIntegrator(float dt);
