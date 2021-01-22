@@ -51,13 +51,8 @@ bool SceneGameplay::Update(float dt)
 	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	//	TransitionToScene(SceneType::TITLE);
 	world->Update(dt);
-	//app->collisions->AddCollider({ 0,0,1280,50 }, Collider::Type::WALL, nullptr);
-	app->collisions->AddCollider({ 0,670,1280,50 }, Collider::Type::WALL, (Module*)app->entityManager);
-	app->collisions->debug = true;
 
 	player->Update(dt);
-
-	
 
 	return true;
 }
