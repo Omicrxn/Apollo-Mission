@@ -20,7 +20,7 @@ Player::Player() : Entity(EntityType::PLAYER)
     // Player collider
 
     Shape* circle = (Shape*)new CircleShape(2.0f);
-    body = new Body(5.0f,circle);
+    body = new Body(5.0f,circle,0.007f);
     body->position = Vec2f(600.0f, 400.0f);
     collider = app->collisions->AddCollider({ (int)body->position.x,(int)body->position.y,width,height }, Collider::Type::PLAYER, (Module*)app->entityManager);
 }
@@ -42,7 +42,6 @@ bool Player::Update(float dt)
     //follow if over the ground
     if (body->position.y < 357)
     app->render->CameraFollow(body->position);
-
     return true;
 }
 
@@ -51,28 +50,16 @@ bool Player::Draw()
     // TODO: Calculate the corresponding rectangle depending on the
     // animation state and animation frame
     app->render->DrawTexture(texture, body->position.x, body->position.y, &rect);
-   
-    
-
     return false;
 }
 
 void Player::HorizontalMove(bool isLeft)
 {
-    //if (position.x <= 0)
-    //{
-    //    position.x = 0;
-    //}
-    //else if (position.x >= 1280 - 16)
-    //{
-    //    position.x = 1280 - 16;
-    //}
     isLeft ? body->AddImpulse(Vec2f(-0.250f,0.0f), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(0.250f, 0.0f), Vec2f(0.0f, 0.0f));
 }
 
 void Player::Propulsion()
 {
-    //velocity.y = -400.0f;
     body->AddImpulse(Vec2f(0, -0.20f), Vec2f(0.0f, 0.0f));
 }
 
