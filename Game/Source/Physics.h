@@ -11,6 +11,8 @@ public:
 
 	void UpdateVelocity(iPoint& position, fPoint& velocity, float& acceleration, float dt);
 
+	void EulerIntegrator();
+
 	fPoint AccelerationFromForce(fPoint force, uint mass);
 
 private:

@@ -60,6 +60,9 @@
     <ClCompile Include="Source\Physics.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Body.cpp">
+      <Filter>PhysicsEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -165,6 +168,27 @@
     <ClInclude Include="Source\Physics.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Body.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CircleShape.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PolygonShape.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Shape.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vec2.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World.h">
+      <Filter>PhysicsEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -187,6 +211,9 @@
     </Filter>
     <Filter Include="Scenes">
       <UniqueIdentifier>{3ed4a5d6-0e62-404d-b40b-cef602e825fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysicsEngine">
+      <UniqueIdentifier>{acf0466b-c986-4dfc-91c7-bee7891bbc47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

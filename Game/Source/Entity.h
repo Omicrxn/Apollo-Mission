@@ -2,6 +2,7 @@
 #define __ENTITY_H__
 
 #include "Point.h"
+#include "Vec2.h"
 #include "SString.h"
 
 #include "Collisions.h"
@@ -38,7 +39,6 @@ public:
 
     // Possible properties, it depends on how generic we
     // want our Entity class, maybe it's not renderable...
-    iPoint position = { 0,0 };        // Use a float instead?
     bool renderable = false;
     //SDL_Texture* texture;
 
