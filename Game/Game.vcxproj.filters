@@ -168,9 +168,6 @@
     <ClInclude Include="Source\Physics.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Body.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>

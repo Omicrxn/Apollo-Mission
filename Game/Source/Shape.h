@@ -27,4 +27,8 @@ public:
 	{
 		return this->inertia;
 	}
+	virtual float GetDensity()
+	{
+		return this->density;
+	}
 };

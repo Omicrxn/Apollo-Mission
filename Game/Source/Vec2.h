@@ -70,6 +70,11 @@ public:
 	{
 		return Cross(*this, v);
 	}
+
+	static Vec2 Pow(Vec2 v)
+	{
+		return { v.x * v.x,v.y * v.y };
+	}
 	Vec2& operator=(const Vec2& v) {
 		x = v.x;
 		y = v.y;

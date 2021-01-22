@@ -30,9 +30,9 @@ bool Player::Update(float dt)
 
     tempPosition = body->position;
 
-    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) HorizontalMove(true);
-    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) HorizontalMove(false);
-    if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) Propulsion();
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) HorizontalMove(true);
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) HorizontalMove(false);
+    if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) Propulsion();
     
     // Update collider position
     if (collider != nullptr)
@@ -67,12 +67,13 @@ void Player::HorizontalMove(bool isLeft)
     //{
     //    position.x = 1280 - 16;
     //}
-    //isLeft ? velocity.x = -200.0f : velocity.x = 250.0f;
+    isLeft ? body->AddImpulse(Vec2f(-0.250f,0.0f), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(0.250f, 0.0f), Vec2f(0.0f, 0.0f));
 }
 
 void Player::Propulsion()
 {
     //velocity.y = -400.0f;
+    body->AddImpulse(Vec2f(0, -0.20f), Vec2f(0.0f, 0.0f));
 }
 
 
