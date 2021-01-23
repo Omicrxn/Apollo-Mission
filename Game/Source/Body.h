@@ -1,8 +1,9 @@
 #pragma once
 #include "CustomMath.h"
-
 #include "Point.h"
+#include "Collision.h"
 class Shape;
+
 class Body {
 public:
 	Vec2f position = Vec2f(0,0);
@@ -23,8 +24,8 @@ public:
 	float liftCoeficient = 0.0f;
 	float restitutionCoeficient = 0.0f;
 	Shape* shape;
-
-	Vec2f gravity = Vec2f(0.0f,600.0f);
+	RectCollision* rectCollision;
+	CircleCollision* circleCollision;
 
 	Body(Vec2f position, float density, Shape* shape, float dragCoeficient);
 	void Update(float dt);
@@ -35,7 +36,10 @@ public:
 	void AddForceAndTorque(Vec2f force, Vec2f position);
 	void AddBuoyancy();
 	void AddDrag();
+	void AddGravity(Vec2f gravity);
+	void AddNormalForce(Vec2f gravity);
 	void AddLift(float atmosphereDensity, float surface);
+	void AddCollision(SDL_Rect bounds, CollisionType type,Module* listener = nullptr);
 private:
 
 	void EulerIntegrator(float dt);

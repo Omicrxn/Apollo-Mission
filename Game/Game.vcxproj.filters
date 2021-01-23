@@ -57,7 +57,7 @@
     <ClCompile Include="Source\Body.cpp">
       <Filter>PhysicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Collider.cpp">
+    <ClCompile Include="Source\Collision.cpp">
       <Filter>PhysicsEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -168,10 +168,10 @@
     <ClInclude Include="Source\World.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Collider.h">
+    <ClInclude Include="Source\CustomMath.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CustomMath.h">
+    <ClInclude Include="Source\Collision.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>
   </ItemGroup>

@@ -219,8 +219,6 @@ struct Matrix2D
 
     const Matrix2D operator*(const Matrix2D& rhs) const
     {
-        // [00 01]  [00 01]
-        // [10 11]  [10 11]
 
         return Matrix2D(
             m[0][0] * rhs.m[0][0] + m[0][1] * rhs.m[1][0],

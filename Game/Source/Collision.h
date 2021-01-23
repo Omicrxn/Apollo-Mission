@@ -1,7 +1,13 @@
 #include "SDL/include/SDL_Rect.h"
+#include "CustomMath.h"
 #include "Point.h"
-struct Module;
+#include "Module.h"
 
+enum class CollisionType {
+	CIRCLE,
+	RECTANGLE,
+	NONE
+};
 class CircleCollision
 {
 public:
@@ -10,10 +16,11 @@ public:
 		float radius = 0.0f;
 	};
 	Circle collider;
-	CircleCollision(float x, float y, float radius);
+	Module* listener;
+	CircleCollision(float x, float y, float radius, Module* listener = nullptr);
 	bool Intersects(CircleCollision& colliderB);
 	bool Intersects(SDL_Rect& colldierB);
-	void SetPosition(iPoint position);
+	void SetPosition(Vec2f position);
 };
 class RectCollision
 {
@@ -23,5 +30,5 @@ public:
 	Module* listener;
 	bool Intersects(SDL_Rect& colliderB);
 	bool Intersects(CircleCollision& colliderB);
-	void SetPosition(iPoint position);
+	void SetPosition(Vec2f position);
 };

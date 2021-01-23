@@ -15,7 +15,8 @@ Player::Player() : Entity(EntityType::PLAYER)
     width = 42;
     height = 42;
     Circle* c = new Circle(3.0f);
-    body = new Body(Vec2f(600.0f,400.0f),5.0f,c,0.007f);
+    body = new Body(Vec2f(600.0f,550.0f),5.0f,c,0.009f);
+    body->AddCollision({ 600,400,width,height }, CollisionType::RECTANGLE);
 
 }
 
@@ -23,15 +24,17 @@ bool Player::Update(float dt)
 {
 
     tempPosition = body->position;
-
+    body->AddGravity(Vec2f(0.0f, 600.0f));
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) HorizontalMove(true);
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) HorizontalMove(false);
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) Propulsion();
     
 
     //follow if over the ground
-    if (body->position.y < 357)
+    if (body->position.y < 3000)
     app->render->CameraFollow(body->position);
+
+    body->rectCollision->SetPosition(body->position);
     return true;
 }
 

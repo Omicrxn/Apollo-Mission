@@ -21,7 +21,7 @@ struct Shape
     virtual Type GetType() const = 0;
 
     Body* body;
-
+    customFloat area;
     // For circle shape
     customFloat radius;
 
@@ -31,9 +31,11 @@ struct Shape
 
 struct Circle : public Shape
 {
+public:
     Circle(customFloat r)
     {
         radius = r;
+        area = PI * r * r;
     }
     void Initialize(float density)
     {
@@ -58,6 +60,7 @@ struct Circle : public Shape
 
 struct PolygonShape : public Shape
 {
+public:
     void Initialize(float density)
     {
         ComputeMass(density);
@@ -67,7 +70,6 @@ struct PolygonShape : public Shape
     {
         // Calculate centroid and moment of interia
         Vec2f centroid(0, 0); // centroid
-        customFloat area = 0.0f;
         customFloat I = 0.0f;
         const customFloat k_inv3 = 1.0f / 3.0f;
 

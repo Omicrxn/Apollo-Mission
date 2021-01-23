@@ -1,5 +1,5 @@
-#include "Collider.h"
-#include "Module.h"
+#include "Collision.h"
+
 
 RectCollision::RectCollision(SDL_Rect collider, Module* listener) {
 	this->collider = collider;
@@ -49,16 +49,17 @@ bool RectCollision::Intersects(CircleCollision& colliderB) {
 	return false;
 }
 
-void RectCollision::SetPosition(iPoint position) {
+void RectCollision::SetPosition(Vec2f position) {
 	this->collider.x = position.x;
 	this->collider.y = position.y;
 }
 
 
-CircleCollision::CircleCollision(float x, float y, float radius) {
+CircleCollision::CircleCollision(float x, float y, float radius, Module* listener) {
 	this->collider.position.x = x;
 	this->collider.position.y = y;
 	this->collider.radius = radius;
+	this->listener = listener;
 }
 
 bool CircleCollision::Intersects(CircleCollision& colliderB) {
@@ -92,7 +93,6 @@ bool CircleCollision::Intersects(SDL_Rect& colliderB) {
 	{
 		closestPoint.y = this->collider.position.y;
 	}
-;
 	int distance = this->collider.position.DistanceTo(closestPoint);
 	if (distance < this->collider.radius) {
 		return true;

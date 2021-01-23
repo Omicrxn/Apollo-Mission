@@ -1,6 +1,7 @@
 #include <cmath>
 #include "Body.h"
 #include "Shape.h"
+
 Body::Body(Vec2f position, float density, Shape* shape, float dragCoeficient)
 {
 	this->shape = shape;
@@ -28,7 +29,7 @@ void Body::EulerIntegrator(float dt) {
 	Vec2f acceleration = AccelerationFromForce(force, mass);
 	velocity += acceleration * dt;
 	position += velocity * dt;
-
+	printf("%f\n", velocity.y);
 }
 
 void Body::EulerIntegratorAngular(float dt) {
@@ -40,7 +41,9 @@ void Body::EulerIntegratorAngular(float dt) {
 
 Vec2f Body::AccelerationFromForce(Vec2f force, float mass)
 {
-	return force / mass + gravity; //TODO: Check if dt
+
+
+	return force / mass; //TODO: Check if dt
 }
 
 float Body::AccelerationFromForceAngular(float torque, float inertia)
@@ -69,7 +72,16 @@ void Body::AddImpulse(Vec2f impulse, Vec2f position)
 	this->velocity += impulse * mass;
 	this->angularVelocity += position.Cross(impulse) * this->inertia;
 }
+void Body::AddGravity(Vec2f gravity) {
+	Vec2f gravityForce =  gravity * mass;
+	this->AddForce(gravityForce);
+}
 
+void Body::AddNormalForce(Vec2f gravity) {
+	Vec2f normalForce = gravity * mass;
+	this->AddForce(normalForce);
+
+}
 void Body::AddDrag()
 {
 	Vec2f dir;
@@ -82,7 +94,7 @@ void Body::AddDrag()
 		dir.y = -1;
 	else
 		dir.y = 1;
-	Vec2f dragForce = Vec2f::Pow(velocity) * 0.5f  * mass * dir * dragCoeficient;
+	Vec2f dragForce = Vec2f::Pow(velocity) * 0.5f  * shape->area * dir * dragCoeficient;
 	AddForce(dragForce);
 }
 
@@ -95,4 +107,22 @@ void Body::AddBuoyancy()
 void Body::AddLift(float atmosphereDensity, float wingSurface)
 {
 	Vec2f liftForce = Vec2f::Pow(velocity) * atmosphereDensity * wingSurface * liftCoeficient;
+}
+
+void Body::AddCollision(SDL_Rect bounds, CollisionType type, Module* listener) {
+
+	switch (type)
+	{
+	case CollisionType::CIRCLE:
+		this->circleCollision = new CircleCollision(bounds.x,bounds.y,bounds.w,listener);
+		break;
+	case CollisionType::RECTANGLE:
+		this->rectCollision = new RectCollision(bounds, listener);
+		break;
+	case CollisionType::NONE:
+		break;
+	default:
+		break;
+	}
+
 }

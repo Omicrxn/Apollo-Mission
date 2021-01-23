@@ -23,6 +23,7 @@ public:
 
     bool Unload();
 
+    void CheckAllColisions();
 
 
 private:
@@ -31,7 +32,8 @@ private:
     SDL_Rect camera = { 0,0,0,0 };
     World* world = nullptr;
     SDL_Texture* space = nullptr;
-    SDL_Rect spaceRect = { 0,0,1280,2160 };
+    SDL_Rect spaceRect = { 0,0,1280,3600 };
+    RectCollision* groundCollision;
 };
 
 #endif // __SCENEGAMEPLAY_H__

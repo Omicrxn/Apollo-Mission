@@ -35,24 +35,20 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	player->SetTexture(app->tex->Load("Assets/Textures/space_spritesheet.png"));
 	world = new World();
 	world->AddBody(player->body);
-    return false;
-}
 
-inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
-{
-	if ((rec1.x < (rec2.x + rec2.w) && (rec1.x + rec1.w) > rec2.x) &&
-		(rec1.y < (rec2.y + rec2.h) && (rec1.y + rec1.h) > rec2.y)) return true;
-	else return false;
+	groundCollision = new RectCollision({ 0,0,1280,60 });
+    return false;
 }
 
 bool SceneGameplay::Update(float dt)
 {
 	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	//	TransitionToScene(SceneType::TITLE);
-	world->Update(dt);
+
 
 	player->Update(dt);
-
+	world->Update(dt);
+	CheckAllColisions();
 	return true;
 }
 
@@ -63,6 +59,15 @@ bool SceneGameplay::Draw()
 	player->Draw();
 
     return false;
+}
+
+void SceneGameplay::CheckAllColisions() {
+	if (groundCollision->Intersects(player->body->rectCollision->collider)) {
+		player->body->AddNormalForce(Vec2f(0.0f, -600.0f));
+		player->body->velocity.y = 0;
+	}
+
+
 }
 
 bool SceneGameplay::Unload()
