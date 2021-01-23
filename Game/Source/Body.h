@@ -24,14 +24,14 @@ public:
 
 	Vec2f gravity = Vec2f(0.0f,600.0f);
 
-	Body(float density, Shape* shape, float dragCoeficient);
+	Body(float density, Shape* shape);
 	void Update(float dt);
 
 	void AddImpulse(Vec2f impulse, Vec2f position);
 	void AddForce(Vec2f force);
 	void AddTorque(float torque);
 	void AddForceAndTorque(Vec2f force, Vec2f position);
-	void AddBuoyancy();
+	void AddBuoyancy(float fluidMass);
 	void AddDrag();
 	void AddLift(float atmosphereDensity, float surface);
 private:
