@@ -31,7 +31,6 @@ public:
 
 	bool UpdateAll(float dt, bool doLogic);
 
-	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 

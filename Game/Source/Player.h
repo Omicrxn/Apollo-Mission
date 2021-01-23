@@ -30,8 +30,6 @@ public:
 
     SDL_Rect GetBounds();
 
-    void OnCollision(Collider* collider) override;
-
 private:
     void HorizontalMove(bool isLeft);
     void Propulsion();

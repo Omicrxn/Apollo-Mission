@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
-#include "Collisions.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -77,15 +77,4 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 	}
 
 	return true;
-}
-
-void EntityManager::OnCollision(Collider* c1, Collider* c2)
-{
-	for (ListItem<Entity*>* i = entities.start; i != NULL; i = i->next)
-	{
-		if (i->data->GetCollider() == c1 && ((c2->type == Collider::Type::WALL) || (c2->type == Collider::Type::PLAYER)))
-		{
-			i->data->OnCollision(c2);
-		}
-	}
 }

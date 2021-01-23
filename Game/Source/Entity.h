@@ -2,10 +2,8 @@
 #define __ENTITY_H__
 
 #include "Point.h"
-#include "Vec2.h"
+#include "CustomMath.h"
 #include "SString.h"
-
-#include "Collisions.h"
 
 enum class EntityType
 {
@@ -26,10 +24,6 @@ public:
         return true;
     }
 
-    const Collider* GetCollider() const { return collider; }
-
-    virtual void OnCollision(Collider* collider) {};
-
 public:
 
     EntityType type = EntityType::UNKNOWN;
@@ -41,8 +35,6 @@ public:
     // want our Entity class, maybe it's not renderable...
     bool renderable = false;
     //SDL_Texture* texture;
-
-    Collider* collider = nullptr;
 };
 
 #endif // __ENTITY_H__

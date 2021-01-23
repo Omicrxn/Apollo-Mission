@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Body.cpp" />
+    <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Font.cpp" />
@@ -99,7 +100,6 @@
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
     <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\SceneGameplay.cpp" />
     <ClCompile Include="Source\SceneLogo.cpp" />
@@ -110,7 +110,8 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Body.h" />
-    <ClInclude Include="Source\CircleShape.h" />
+    <ClInclude Include="Source\Collider.h" />
+    <ClInclude Include="Source\CustomMath.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
@@ -119,9 +120,7 @@
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\PerfTimer.h" />
-    <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\PolygonShape.h" />
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Scene.h" />
@@ -137,7 +136,6 @@
     <ClInclude Include="Source\Shape.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
-    <ClInclude Include="Source\Vec2.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

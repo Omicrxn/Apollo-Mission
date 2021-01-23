@@ -4,7 +4,7 @@
 #include "Module.h"
 
 #include "Point.h"
-#include "Vec2.h"
+#include "CustomMath.h"
 #include "Font.h"
 
 #include "SDL/include/SDL.h"

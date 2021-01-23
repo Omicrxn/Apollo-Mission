@@ -7,7 +7,7 @@
 #include "Audio.h"
 #include "EntityManager.h"
 #include "SceneManager.h"
-#include "Collisions.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,7 +31,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new AudioManager();
 	entityManager = new EntityManager();
 	sceneManager = new SceneManager();
-	collisions = new Collisions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -39,7 +38,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(collisions);
 	AddModule(entityManager);
 	AddModule(sceneManager);
 
