@@ -36,10 +36,11 @@ public:
 	void AddForceAndTorque(Vec2f force, Vec2f position);
 	void AddBuoyancy();
 	void AddDrag();
+	Vec2f Body::GetGravity(Vec2f maxGravity, Vec2f position, uint gravityStart, uint gravityEnd, bool up);
 	void AddGravity(Vec2f gravity);
 	void AddNormalForce(Vec2f gravity);
 	void AddLift(float atmosphereDensity, float surface);
-	void AddCollision(SDL_Rect bounds, ColliderType type,Module* listener = nullptr);
+	void AddCollision(SDL_Rect bounds, ColliderType type, Module* listener = nullptr);
 private:
 
 	void EulerIntegrator(float dt);

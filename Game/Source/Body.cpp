@@ -29,7 +29,6 @@ void Body::EulerIntegrator(float dt) {
 	Vec2f acceleration = AccelerationFromForce(force, mass);
 	velocity += acceleration * dt;
 	position += velocity * dt;
-	printf("%f\n", velocity.y);
 }
 
 void Body::EulerIntegratorAngular(float dt) {
@@ -71,6 +70,29 @@ void Body::AddImpulse(Vec2f impulse, Vec2f position)
 {
 	this->velocity += impulse * mass;
 	this->angularVelocity += position.Cross(impulse) * this->inertia;
+}
+Vec2f Body::GetGravity(Vec2f maxGravity, Vec2f position, uint gravityStart, uint gravityEnd, bool up)
+{
+	if (up)
+	{
+		if (position.y > gravityStart && position.y < gravityEnd)
+		{
+			Vec2f gravity = { 0.0f,0.0f };
+			gravity.y = maxGravity.y - ((maxGravity.y / (gravityEnd - gravityStart)) * (position.y - gravityStart));
+			return gravity;
+		}
+	}
+	else
+	{
+		if (position.y > gravityStart && position.y < gravityEnd)
+		{
+			Vec2f gravity = { 0.0f,0.0f };
+			gravity.y = maxGravity.y - ((maxGravity.y / (gravityEnd - gravityStart)) * (gravityEnd - position.y));
+			return gravity;
+		}
+	}
+	
+	return Vec2f{ 0.0f,0.0f };
 }
 void Body::AddGravity(Vec2f gravity) {
 	Vec2f gravityForce =  gravity * mass;

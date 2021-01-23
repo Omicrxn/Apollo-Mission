@@ -32,7 +32,17 @@ public:
 
 private:
     void HorizontalMove(bool isLeft);
-    void Propulsion();
+    void Propulsion(bool isUp);
+
+    Vec2f earthMaxGravity = { 0.0f,0.0f };
+    Vec2f earthGravity = { 0.0f,0.0f };
+    uint earthGravityStart = 0;
+    uint earthGravityEnd = 0;
+
+    Vec2f moonMaxGravity = { 0.0f,0.0f };
+    Vec2f moonGravity = { 0.0f,0.0f };
+    uint moonGravityStart = 0;
+    uint moonGravityEnd = 0;
 
 public:
 

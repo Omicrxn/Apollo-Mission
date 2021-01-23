@@ -18,17 +18,31 @@ Player::Player() : Entity(EntityType::PLAYER)
     body = new Body(Vec2f(600.0f,550.0f),5.0f,c,0.009f);
     body->AddCollision({ 600,400,width,height }, ColliderType::RECTANGLE);
 
+    earthMaxGravity = { 0.0f,600.0f };
+    earthGravity = { 0.0f,0.0f };
+    earthGravityStart = 2160;
+    earthGravityEnd = 3600;
+
+    moonMaxGravity = { 0.0f,-600.0f };
+    moonGravity = { 0.0f,0.0f };
+    moonGravityStart = 0;
+    moonGravityEnd = 1440;
 }
 
 bool Player::Update(float dt)
 {
-
     tempPosition = body->position;
-    body->AddGravity(Vec2f(0.0f, 600.0f));
+
+    earthGravity = body->GetGravity(earthMaxGravity, body->position, earthGravityStart, earthGravityEnd, false);
+    body->AddGravity(earthGravity);
+    moonGravity = body->GetGravity(moonMaxGravity, body->position, moonGravityStart, moonGravityEnd, true);
+    body->AddGravity(moonGravity);
+
+    printf("Earth gravity: %f | Moon gravity: %f\n", earthGravity.y, moonGravity.y);
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) HorizontalMove(true);
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) HorizontalMove(false);
-    if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) Propulsion();
-    
+    if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) Propulsion(true);
+    if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) Propulsion(false);
 
     //follow if over the ground
     if (body->position.y < (3600 - app->win->GetWindowHeight() / 2) && body->position.y > app->win->GetWindowHeight() / 2)
@@ -51,9 +65,9 @@ void Player::HorizontalMove(bool isLeft)
     isLeft ? body->AddImpulse(Vec2f(-0.250f,0.0f), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(0.250f, 0.0f), Vec2f(0.0f, 0.0f));
 }
 
-void Player::Propulsion()
+void Player::Propulsion(bool isUp)
 {
-    body->AddImpulse(Vec2f(0, -0.20f), Vec2f(0.0f, 0.0f));
+    isUp ? body->AddImpulse(Vec2f(0, -0.20f), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(0, 0.20f), Vec2f(0.0f, 0.0f));
 }
 
 
