@@ -36,7 +36,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	world = new World();
 	world->AddBody(player->body);
 
-	groundCollision = new RectCollision({ 0,0,1280,60 });
+	groundCollision = new RectCollision({ 0,3600,1280,60 });
     return false;
 }
 
@@ -54,7 +54,7 @@ bool SceneGameplay::Update(float dt)
 
 bool SceneGameplay::Draw()
 {
-	app->render->DrawTexture(space, 0, -1440, &spaceRect);
+	app->render->DrawTexture(space, 0, 0, &spaceRect);
 
 	player->Draw();
 

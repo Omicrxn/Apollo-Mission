@@ -31,8 +31,8 @@ bool Player::Update(float dt)
     
 
     //follow if over the ground
-    if (body->position.y < 3000)
-    app->render->CameraFollow(body->position);
+    if (body->position.y < (3600 - app->win->GetWindowHeight() / 2) && body->position.y > app->win->GetWindowHeight() / 2)
+        app->render->CameraFollow(body->position);
 
     body->rectCollision->SetPosition(body->position);
     return true;
