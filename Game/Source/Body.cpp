@@ -109,17 +109,18 @@ void Body::AddLift(float atmosphereDensity, float wingSurface)
 	Vec2f liftForce = Vec2f::Pow(velocity) * atmosphereDensity * wingSurface * liftCoeficient;
 }
 
-void Body::AddCollision(SDL_Rect bounds, CollisionType type, Module* listener) {
+void Body::AddCollision(SDL_Rect bounds, ColliderType type, Module* listener) {
 
 	switch (type)
 	{
-	case CollisionType::CIRCLE:
+	case ColliderType::CIRCLE:
+		
 		this->circleCollision = new CircleCollision(bounds.x,bounds.y,bounds.w,listener);
 		break;
-	case CollisionType::RECTANGLE:
+	case ColliderType::RECTANGLE:
 		this->rectCollision = new RectCollision(bounds, listener);
 		break;
-	case CollisionType::NONE:
+	case ColliderType::NONE:
 		break;
 	default:
 		break;

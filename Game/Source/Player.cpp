@@ -16,7 +16,7 @@ Player::Player() : Entity(EntityType::PLAYER)
     height = 42;
     Circle* c = new Circle(3.0f);
     body = new Body(Vec2f(600.0f,550.0f),5.0f,c,0.009f);
-    body->AddCollision({ 600,400,width,height }, CollisionType::RECTANGLE);
+    body->AddCollision({ 600,400,width,height }, ColliderType::RECTANGLE);
 
 }
 

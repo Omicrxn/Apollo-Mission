@@ -2,25 +2,29 @@
 #include "CustomMath.h"
 #include "Point.h"
 #include "Module.h"
-
-enum class CollisionType {
+#include "List.h"
+#define MAX_COLLIDERS 50
+enum class ColliderType {
+	NONE = -1,
 	CIRCLE,
 	RECTANGLE,
-	NONE
+	MAX
+};
+struct CircleCollider {
+	iPoint position = { 0,0 };
+	float radius = 0.0f;
 };
 class CircleCollision
 {
 public:
-	struct Circle {
-		iPoint position = { 0,0 };
-		float radius = 0.0f;
-	};
-	Circle collider;
+
+	CircleCollider collider;
 	Module* listener;
 	CircleCollision(float x, float y, float radius, Module* listener = nullptr);
-	bool Intersects(CircleCollision& colliderB);
+	bool Intersects(CircleCollider& colliderB);
 	bool Intersects(SDL_Rect& colldierB);
 	void SetPosition(Vec2f position);
+
 };
 class RectCollision
 {
@@ -29,6 +33,7 @@ public:
 	SDL_Rect collider;
 	Module* listener;
 	bool Intersects(SDL_Rect& colliderB);
-	bool Intersects(CircleCollision& colliderB);
+	bool Intersects(CircleCollider& colliderB);
 	void SetPosition(Vec2f position);
+
 };

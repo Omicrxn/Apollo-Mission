@@ -14,36 +14,36 @@ bool RectCollision::Intersects(SDL_Rect& colliderB) {
 		collider.y + collider.h > colliderB.y);
 }
 
-bool RectCollision::Intersects(CircleCollision& colliderB) {
+bool RectCollision::Intersects(CircleCollider& colliderB) {
 	iPoint closestPoint = { 0,0 };
-	if (colliderB.collider.position.x < collider.x)
+	if (colliderB.position.x < collider.x)
 	{
 		closestPoint.x = collider.x;
 	}
-	else if (colliderB.collider.position.x > collider.x + collider.w)
+	else if (colliderB.position.x > collider.x + collider.w)
 	{
 		closestPoint.x = collider.x + collider.w;
 	}
 	else
 	{
-		closestPoint.x = colliderB.collider.position.x;
+		closestPoint.x = colliderB.position.x;
 	}
 
-	if (colliderB.collider.position.y < collider.y)
+	if (colliderB.position.y < collider.y)
 	{
 		closestPoint.y = collider.y;
 	}
-	else if (colliderB.collider.position.y > collider.y + collider.h)
+	else if (colliderB.position.y > collider.y + collider.h)
 	{
 		closestPoint.y = collider.y + collider.h;
 	}
 	else
 	{
-		closestPoint.y = colliderB.collider.position.y;
+		closestPoint.y = colliderB.position.y;
 	}
 	iPoint colliderAPos = { collider.x,collider.y };
 	int distance = colliderAPos.DistanceTo(closestPoint);
-	if (distance < colliderB.collider.radius) {
+	if (distance < colliderB.radius) {
 		return true;
 	}
 	return false;
@@ -62,8 +62,8 @@ CircleCollision::CircleCollision(float x, float y, float radius, Module* listene
 	this->listener = listener;
 }
 
-bool CircleCollision::Intersects(CircleCollision& colliderB) {
-	return this->collider.position.DistanceTo(colliderB.collider.position) < (this->collider.radius + colliderB.collider.radius);
+bool CircleCollision::Intersects(CircleCollider& colliderB) {
+	return this->collider.position.DistanceTo(colliderB.position) < (this->collider.radius + colliderB.radius);
 }
 
 bool CircleCollision::Intersects(SDL_Rect& colliderB) {
@@ -99,3 +99,4 @@ bool CircleCollision::Intersects(SDL_Rect& colliderB) {
 	}
 	return false;
 }
+

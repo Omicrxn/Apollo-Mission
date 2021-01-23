@@ -39,7 +39,7 @@ public:
 	void AddGravity(Vec2f gravity);
 	void AddNormalForce(Vec2f gravity);
 	void AddLift(float atmosphereDensity, float surface);
-	void AddCollision(SDL_Rect bounds, CollisionType type,Module* listener = nullptr);
+	void AddCollision(SDL_Rect bounds, ColliderType type,Module* listener = nullptr);
 private:
 
 	void EulerIntegrator(float dt);
