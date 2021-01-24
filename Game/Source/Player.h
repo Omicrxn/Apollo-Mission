@@ -83,6 +83,7 @@ public:
     uint angle = 0;
     bool explode = false;
     bool propulsion = true;
+    bool hasTouchedMoon = false;
 };
 
 #endif // __PLAYER_H__

@@ -34,6 +34,7 @@ public:
 public:
 
 	bool menuExitCall = false;
+	bool win = false;
 
 private:
 	

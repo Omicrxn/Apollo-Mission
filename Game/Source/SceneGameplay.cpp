@@ -7,6 +7,7 @@
 #include "Textures.h"
 
 #include "EntityManager.h"
+#include "SceneManager.h"
 
 SceneGameplay::SceneGameplay()
 {
@@ -77,6 +78,8 @@ bool SceneGameplay::Update(float dt)
 		TransitionToScene(SceneType::TITLE);
 	if (player->explode)
 		TransitionToScene(SceneType::ENDING);
+	if (app->sceneManager->win)
+		TransitionToScene(SceneType::ENDING);
 	player->Update(dt);
 
 	world->Update(dt);
@@ -114,6 +117,10 @@ void SceneGameplay::CheckAllColisions()
 		player->propulsion = false;
 		player->body->velocity = { 0,0 };
 
+		if (player->hasTouchedMoon && !player->explode)
+		{
+			app->sceneManager->win = true;
+		}
 	}
 	else if (earthWaterCollision->Intersects(player->body->rectCollision->collider))
 	{
@@ -132,6 +139,8 @@ void SceneGameplay::CheckAllColisions()
 		player->body->AddNormalForce(Vec2f(0.0f, (player->moonGravity.y * -1.0f)));
 		player->propulsion = false;
 		player->body->velocity = { 0,0 };
+
+		player->hasTouchedMoon = true;
 	}
 	else
 	{ 
@@ -147,7 +156,9 @@ void SceneGameplay::CheckAllColisions()
 	}
 
 	if (asteroid1->collider->Intersects(player->body->rectCollision->collider) ||
-		asteroid2->collider->Intersects(player->body->rectCollision->collider))
+		asteroid2->collider->Intersects(player->body->rectCollision->collider) ||
+		asteroid3->collider->Intersects(player->body->rectCollision->collider) ||
+		asteroid4->collider->Intersects(player->body->rectCollision->collider))
 	{
 		player->explode = true;
 	}

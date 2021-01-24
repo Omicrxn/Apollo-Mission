@@ -55,7 +55,7 @@ Player::Player() : Entity(EntityType::PLAYER)
     height = rect.h;
 
     c = new Circle(3.0f);
-    body = new Body(Vec2f(595.0f, 3000.0f), 5.0f, c, 0.009f);
+    body = new Body(Vec2f(595.0f, 3071), 5.0f, c, 0.009f);
     body->AddCollision({ 600,400,width,height }, ColliderType::RECTANGLE);
 
     earthMaxGravity = { 0.0f,600.0f };
@@ -300,11 +300,9 @@ Vec2f Player::GetGravity()
     return earthGravity;
 }
 
-bool Player::CleanUp() {
-    body->CleanUp();
-    app->tex->UnLoad(texture);
-    app->tex->UnLoad(fireTexture);
-    app->tex->UnLoad(explosionTexture);
+bool Player::CleanUp()
+{
+    //body->CleanUp();
 
     return true;
 }
