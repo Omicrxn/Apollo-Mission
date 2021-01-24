@@ -2,7 +2,7 @@
 
 Link to the repository: [B.A.T. Studios' Apollo Mission in GitHub](https://github.com/Omicrxn/Apollo-Mission)
 
-Link to the latest release: [Apollo Mission newest release](https://github.com/Omicrxn/Apollo-Mission/releases)
+Link to the latest release: [Apollo Mission newest release](https://github.com/Omicrxn/Apollo-Mission/releases/tag/v1.0)
 
 ## Description
 
@@ -17,6 +17,7 @@ Apollo Mission is a game developed by 3 students at CITM-UPC, in Barcelona. It i
 - Implements teh following forces: impulsive, gravity, drag and buoyancy.
 - The physics engine resolves collisions.
 - The game uses different locations: underwater, Earth's surface, atmposhere, outer space and Moon's surface.
+- The game implements a UI to be aware about the physics and locations.
 - The game has a clear and lose conditions.
 - The landings require a certain conditions.
 - Asteroids that must be dodged around the map can destroy the spaceship.
