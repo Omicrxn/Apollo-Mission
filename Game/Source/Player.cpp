@@ -36,6 +36,17 @@ Player::Player() : Entity(EntityType::PLAYER)
     smallFighterTurnRight.loop = false;
     smallFighterTurnRight.speed = 0.1;
 
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            explosion.PushBack(SDL_Rect{ j * 240, i * 240, 240, 240 });
+        }
+    }
+    explosion.loop = false;
+
+    explosion.PushBack(SDL_Rect{ 1920, 1440, 240, 240 });
+
     rect = { 20,12,55,135 };
     fireRect = { 0,0,95,382 };
     width = rect.w;
@@ -122,6 +133,20 @@ bool Player::Update(float dt)
         angle += 360 - 3;
     }
 
+    if (angle > 360)
+    {
+        angle = angle - 360;
+    }
+    /*printf("angle: %d\n", angle);*/
+    if (explode)
+    {
+        printf("true\n");
+    }
+    else
+    {
+        printf("false\n");
+    }
+
     if (!app->debug)
     {
         static char titleDebug[256];
@@ -166,11 +191,19 @@ bool Player::Draw()
         animRight = false;
     }
 
-    app->render->DrawTexture(texture, body->position.x, body->position.y, &currentAnim, 1.0f, angle);
+    if (!explode)
+    {
+        app->render->DrawTexture(texture, body->position.x, body->position.y, &currentAnim, 1.0f, angle);
+    }
 
     if (fireDraw)
     {
-        app->render->DrawTexture(fire, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
+        app->render->DrawTexture(fireTexture, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
+    }
+
+    if (explode)
+    {
+        app->render->DrawTexture(explosionTexture, body->position.x - 47.5f, body->position.y - 75.5f, &explosion.GetCurrentFrame(), 1.0f, angle);
     }
 
     return false;
@@ -187,10 +220,11 @@ void Player::Propulsion(bool isUp, uint angle)
     isUp ? body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
 }
 
-void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2)
+void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2, SDL_Texture* tex3)
 {
     texture = tex;
-    fire = tex2;
+    fireTexture = tex2;
+    explosionTexture = tex3;
 }
 
 SDL_Rect Player::GetBounds()

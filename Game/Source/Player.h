@@ -37,7 +37,7 @@ public:
 
     bool Draw();
 
-    void SetTextures(SDL_Texture* tex, SDL_Texture* tex2);
+    void SetTextures(SDL_Texture* tex, SDL_Texture* tex2, SDL_Texture* tex3);
 
     SDL_Rect GetBounds();
 
@@ -58,9 +58,9 @@ private:
     int fxPropulsion = 0;
     int fxDie = 0;
 
-    uint angle = 0;
     Animation smallFighterTurnLeft;
     Animation smallFighterTurnRight;
+    Animation explosion;
     bool animLeft = false;
     bool animRight = false;
 
@@ -76,14 +76,19 @@ public:
     SDL_Texture* texture = nullptr;   // Player spritesheet
     SDL_Rect rect = { 0,0,0,0 };
 
-    SDL_Texture* fire = nullptr;   // Fire sprite
+    SDL_Texture* fireTexture = nullptr;   // Fire sprite
     SDL_Rect fireRect = { 0,0,0,0 };
+
+    SDL_Texture* explosionTexture = nullptr;
 
     // TODO: Define all animation properties
     PlayerAnim currentAnim;
 
     int width = 0, height = 0;
     Body* body = nullptr;
+
+    uint angle = 0;
+    bool explode = false;
 };
 
 #endif // __PLAYER_H__

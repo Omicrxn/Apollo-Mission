@@ -23,10 +23,11 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	spaceRect = { 0,0,1280,3600 };
 	smallFighter = app->tex->Load("Assets/Textures/small_fighter.png");
 	fire = app->tex->Load("Assets/Textures/fire.png");
+	explosion = app->tex->Load("Assets/Textures/explosion.png");
 
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->SetTextures(smallFighter, fire);
+	player->SetTextures(smallFighter, fire, explosion);
 	
 	// Initialize world
 	world = new World();
@@ -73,9 +74,15 @@ void SceneGameplay::CheckAllColisions()
 {
 	if (earthGroundCollision->Intersects(player->body->rectCollision->collider)) 
 	{
+		player->currentLocation = Location::GROUND;
+
+		if (player->angle > 30 && player->angle < 330 || player->body->velocity.y > 100)
+		{
+			player->explode = true;
+		}
+
 		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
 		player->body->velocity = { 0,0 };
-		player->currentLocation = Location::GROUND;
 	}
 	else if (earthWaterCollision->Intersects(player->body->rectCollision->collider))
 	{
@@ -84,9 +91,15 @@ void SceneGameplay::CheckAllColisions()
 	}
 	else if (moonGroundCollision->Intersects(player->body->rectCollision->collider))
 	{
+		player->currentLocation = Location::MOON;
+
+		if ((player->angle >= 0 && player->angle < 150) || (player->angle > 210 && player->angle <= 360) || player->body->velocity.y < -100)
+		{
+			player->explode = true;
+		}
+
 		player->body->AddNormalForce(Vec2f(0.0f, (player->moonGravity.y * -1.0f)));
 		player->body->velocity = { 0,0 };
-		player->currentLocation = Location::MOON;
 	}
 	else
 	{
