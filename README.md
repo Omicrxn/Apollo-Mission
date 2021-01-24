@@ -7,6 +7,7 @@ Link to the latest release: [Apollo Mission newest release](https://github.com/O
 ## Description
 
 Apollo Mission is a game developed by 3 students at CITM-UPC, in Barcelona. It is developed using our own physics engine for Physics II course.
+
 ![Screenshot 1](https://user-images.githubusercontent.com/59050279/105642338-7916cd00-5e89-11eb-97eb-6a3d47384096.jpg)
 ![Screenshot 2](https://user-images.githubusercontent.com/59050279/105642344-7c11bd80-5e89-11eb-979a-bbb2476e3891.jpg)
 ![Screenshot 3](https://user-images.githubusercontent.com/59050279/105642346-7e741780-5e89-11eb-98ca-c8d04ce81aae.jpg)
