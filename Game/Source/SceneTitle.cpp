@@ -81,9 +81,6 @@ bool SceneTitle::Update(float dt)
         app->sceneManager->menuExitCall = true;
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-        menuCurrentSelection = MenuSelection::NONE;
-
     app->input->GetMousePosition(mousePos.x, mousePos.y);
 
     if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)

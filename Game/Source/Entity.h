@@ -8,8 +8,7 @@
 enum class EntityType
 {
     PLAYER,
-    ENEMY,
-    ITEM,
+    STAGE,
     UNKNOWN
 };
 

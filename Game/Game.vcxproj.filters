@@ -45,12 +45,6 @@
     <ClCompile Include="Source\SceneGameplay.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Item.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Font.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -59,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="Source\Collision.cpp">
       <Filter>PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageBody.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +90,6 @@
     <ClInclude Include="Source\PQueue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Entity.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -107,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="Source\Input.h">
       <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Item.h">
-      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Modules</Filter>
@@ -173,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Source\Collision.h">
       <Filter>PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageBody.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

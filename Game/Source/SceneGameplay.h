@@ -25,15 +25,20 @@ public:
 
     void CheckAllColisions();
 
-
 private:
 
     Player* player = nullptr;
     SDL_Rect camera = { 0,0,0,0 };
+
     World* world = nullptr;
+
     SDL_Texture* space = nullptr;
-    SDL_Rect spaceRect = { 0,0,1280,3600 };
-    RectCollision* groundCollision;
+    SDL_Rect spaceRect = { 0,0,0,0 };
+
+    RectCollision* earthBottomCollision = nullptr;
+    RectCollision* earthWaterCollision = nullptr;
+    RectCollision* earthGroundCollision = nullptr;
+    RectCollision* moonGroundCollision = nullptr;
 };
 
 #endif // __SCENEGAMEPLAY_H__

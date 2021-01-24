@@ -1,9 +1,7 @@
 #include "EntityManager.h"
 
 #include "Player.h"
-#include "Enemy.h"
-#include "Item.h"
-
+#include "StageBody.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -41,10 +39,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 		// L13: Create the corresponding type entity
-		case EntityType::PLAYER: ret = new Player();  break;
-		//case EntityType::ENEMY: ret = new Enemy();  break;
-		//case EntityType::ITEM: ret = new Item();  break;
-		default: break;
+		case EntityType::PLAYER: ret = new Player();
+			break;
+		//case EntityType::STAGE: ret = new Enemy();
+			//break;
+		default:
+			break;
 	}
 
 	// Created entities are added to the list

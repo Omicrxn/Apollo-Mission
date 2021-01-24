@@ -91,11 +91,9 @@
   <ItemGroup>
     <ClCompile Include="Source\Body.cpp" />
     <ClCompile Include="Source\Collision.cpp" />
-    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -106,19 +104,18 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SceneTitle.cpp" />
+    <ClCompile Include="Source\StageBody.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Body.h" />
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\CustomMath.h" />
-    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Font.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiControl.h" />
-    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PQueue.h" />
@@ -134,6 +131,7 @@
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\SceneTitle.h" />
     <ClInclude Include="Source\Shape.h" />
+    <ClInclude Include="Source\StageBody.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Window.h" />

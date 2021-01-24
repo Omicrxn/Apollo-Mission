@@ -85,6 +85,8 @@ public:
 	SceneManager* sceneManager;
 	Collisions* collisions;
 
+	bool debug = false;
+
 private:
 
 	int argc;
@@ -109,8 +111,6 @@ private:
 	float dt = 0.0f;
 
 	int	cappedMs = -1;
-
-	bool debug = false;
 };
 
 extern App* app;

@@ -137,6 +137,8 @@ bool App::Start()
 
 	PERF_PEEK(ptimer);
 
+	win->SetTitle("Apollo Mission - B.A.T. Studios");
+
 	return ret;
 }
 
@@ -184,7 +186,7 @@ void App::PrepareUpdate()
 	dt = frameTimer.ReadSec();
 	frameTimer.Start();
 
-	if (input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 }
 
@@ -206,8 +208,6 @@ void App::FinishUpdate()
 	
 	if(debug)
 		win->SetTitle(titleDebug);
-	else
-		win->SetTitle("Apollo Mission - B.A.T. Studios");
 
 	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
 	{
