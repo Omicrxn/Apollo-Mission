@@ -24,6 +24,7 @@ public:
     void SetTexture(SDL_Texture* tex);
 
     void SetPosition(Vec2i position);
+    bool CleanUp();
 
 public:
 

@@ -147,3 +147,9 @@ void Body::AddCollision(SDL_Rect bounds, ColliderType type, Module* listener) {
 		break;
 	}
 }
+
+void Body::CleanUp() {
+	RELEASE(rectCollision);
+	RELEASE(circleCollision);
+	RELEASE(shape);
+}

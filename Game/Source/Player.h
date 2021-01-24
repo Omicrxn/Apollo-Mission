@@ -11,7 +11,7 @@
 
 class Body;
 class Font;
-
+class Circle;
 enum class Location
 {
     SPACE,
@@ -37,6 +37,7 @@ public:
     SDL_Rect GetBounds();
 
     Vec2f GetGravity();
+    bool CleanUp();
 
 private:
     void HorizontalMove(bool isLeft);
@@ -79,7 +80,7 @@ public:
 
     int width = 0, height = 0;
     Body* body = nullptr;
-
+    Circle* c = nullptr;
     uint angle = 0;
     bool explode = false;
     bool propulsion = true;

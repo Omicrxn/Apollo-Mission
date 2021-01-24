@@ -188,12 +188,11 @@ bool SceneTitle::Unload()
     app->tex->UnLoad(atlasGUITexture);
     atlasGUITexture = nullptr;
 
-    delete buttonStart;
-    delete buttonCredits;
-    delete buttonExit;
-    delete buttonReturn;
-
-    delete font;
+    RELEASE(buttonStart);
+    RELEASE(buttonCredits);
+    RELEASE(buttonExit);
+    RELEASE(buttonReturn);
+    RELEASE(font);
 
     return false;
 }

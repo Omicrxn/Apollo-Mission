@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "App.h"
 #include "Render.h"
+#include "Textures.h"
 #include "Window.h"
 #include "Audio.h"
 #include "Input.h"
@@ -53,7 +54,7 @@ Player::Player() : Entity(EntityType::PLAYER)
     width = rect.w;
     height = rect.h;
 
-    Circle* c = new Circle(3.0f);
+    c = new Circle(3.0f);
     body = new Body(Vec2f(595.0f, 3000.0f), 5.0f, c, 0.009f);
     body->AddCollision({ 600,400,width,height }, ColliderType::RECTANGLE);
 
@@ -302,4 +303,13 @@ SDL_Rect Player::GetBounds()
 Vec2f Player::GetGravity()
 {
     return earthGravity;
+}
+
+bool Player::CleanUp() {
+    body->CleanUp();
+    app->tex->UnLoad(texture);
+    app->tex->UnLoad(fireTexture);
+    app->tex->UnLoad(explosionTexture);
+
+    return true;
 }

@@ -31,7 +31,6 @@ public:
 
 	bool UpdateAll(float dt, bool doLogic);
 
-
 public:
 
 	List<Entity*> entities;

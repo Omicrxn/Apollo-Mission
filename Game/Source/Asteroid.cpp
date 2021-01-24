@@ -33,3 +33,8 @@ void Asteroid::SetPosition(Vec2i pos)
     position = pos;
     collider = new CircleCollision(pos.x + width/2, pos.y + height/2, 200);
 }
+
+bool Asteroid::CleanUp() {
+    RELEASE(collider);
+    return true;
+}

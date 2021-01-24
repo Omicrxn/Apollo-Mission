@@ -54,6 +54,6 @@ bool SceneEnding::Draw()
 
 bool SceneEnding::Unload()
 {
-    delete font;
+    RELEASE(font);
     return false;
 }

@@ -101,7 +101,6 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\SceneEnding.cpp" />
     <ClCompile Include="Source\SceneGameplay.cpp" />
-    <ClCompile Include="Source\SceneLogo.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SceneTitle.cpp" />
@@ -124,7 +123,6 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneEnding.h" />
     <ClInclude Include="Source\SceneGameplay.h" />
-    <ClInclude Include="Source\SceneLogo.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />

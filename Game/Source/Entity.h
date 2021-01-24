@@ -22,6 +22,11 @@ public:
     {
         return true;
     }
+    virtual bool CleanUp()
+    {
+        return true;
+    }
+
 
 public:
 

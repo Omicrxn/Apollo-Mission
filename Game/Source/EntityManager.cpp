@@ -1,6 +1,8 @@
 #include "EntityManager.h"
 
 #include "Player.h"
+#include "App.h"
+#include "Textures.h"
 #include "Asteroid.h"
 
 #include "Defs.h"
@@ -28,7 +30,15 @@ bool EntityManager::Awake(pugi::xml_node& config)
 bool EntityManager::CleanUp()
 {
 	if (!active) return true;
+	ListItem<Entity*>* entity = entities.start;
+	while (entity != nullptr)
+	{
+		if (!entity->data->active)
+			DestroyEntity(entity->data);
 
+		entity = entity->next;
+	}
+	entities.Clear();
 	return true;
 }
 
@@ -73,8 +83,24 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
 	if (doLogic)
 	{
-		// TODO: Update all entities 
+		ListItem<Entity*>* entity = entities.start;
+		while (entity != nullptr)
+		{
+
+			if (!entity->data->active)
+				DestroyEntity(entity->data);
+
+			entity = entity->next;
+		}
 	}
 
 	return true;
+}
+void EntityManager::DestroyEntity(Entity* entity)
+{
+	ListItem<Entity*>* item = entities.At(entities.Find(entity));
+	item->data->CleanUp();
+	RELEASE(entity);
+
+	entities.Del(item);
 }

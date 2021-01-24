@@ -162,8 +162,19 @@ bool SceneGameplay::Unload()
 	app->tex->UnLoad(explosion);
 	app->tex->UnLoad(asteroidTexture);
 
-	delete font;
-	font = nullptr;
+	player->active = false;
+	asteroid1->active = false;
+	asteroid2->active = false;
+	asteroid3->active = false;
+	asteroid4->active = false;
+	
+	RELEASE(font);
+	world->CleanUp();
+	RELEASE(world);
+	RELEASE(earthBottomCollision);
+	RELEASE(earthWaterCollision);
+	RELEASE(earthGroundCollision);
+	RELEASE(moonGroundCollision);
 
     return false;
 }
