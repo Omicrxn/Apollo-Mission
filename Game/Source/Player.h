@@ -66,7 +66,6 @@ private:
     bool animRight = false;
 
     bool fireDraw = false;
-    int fxPropulsion = 0;
     int fxDie = 0;
 
     Font* fontUI = nullptr;

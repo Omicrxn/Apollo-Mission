@@ -72,7 +72,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 
     currentLocation = Location::SPACE;
 
-    fxPropulsion = app->audio->LoadFx("Assets/Audio/Fx/thruster_fire.ogg");
     fxDie = app->audio->LoadFx("Assets/Audio/Fx/explosion_crunch.ogg");
 }
 
@@ -104,17 +103,12 @@ bool Player::Update(float dt)
         propulsion = true;
         fireDraw = true;
         Propulsion(true, angle);
-        //app->audio->PlayFx(fxPropulsion);
     }
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
-    {
         fireDraw = false;
-    }
+    
     if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-    {
         Propulsion(false, angle);
-        //app->audio->PlayFx(fxPropulsion);
-    }
 
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
     {
@@ -126,6 +120,7 @@ bool Player::Update(float dt)
     {
         angle += 3;
     }
+
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
     {
         smallFighterTurnRight.Reset();
@@ -187,72 +182,72 @@ bool Player::Draw()
         static char textUI[50];
 
         sprintf_s(textUI, 40, "Position: %.0f,%.0f", body->position.x, body->position.y);
-        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 350, 18, 4, { 255,255,255,255 });
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 350, 18, 4, { 255,255,255,255 });
         
         Uint8 r = 255, g = 255, b = 255;
 
         if (earthGravity.y > 0.0f)
         {
-            if (body->velocity.y > 100)
+            if (body->velocity.y > 200)
             {
-                sprintf_s(textUI, 40, "!!! Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
+                sprintf_s(textUI, 40, "! Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
                 g = b = 0;
             }
             else sprintf_s(textUI, 40, "Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
 
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 330, 18, 4, { r,g,b,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 330, 18, 4, { r,g,b,255 });
             Uint8 r = 255, g = 255, b = 255;
 
             if (angle > 30 && angle < 330)
             {
-                sprintf_s(textUI, 30, "!!! Angle: %d", angle);
+                sprintf_s(textUI, 30, "! Angle: %d", angle);
                 g = b = 0;
             }
             else sprintf_s(textUI, 30, "Angle: %d", angle);
 
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 310, 18, 4, { r,g,b,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 310, 18, 4, { r,g,b,255 });
         }
         else if (moonGravity.y < 0.0f)
         {
-            if (body->velocity.y < -100)
+            if (body->velocity.y < -200)
             {
-                sprintf_s(textUI, 40, "!!! Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
+                sprintf_s(textUI, 40, "! Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
                 g = b = 0;
             }
             else sprintf_s(textUI, 40, "Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
 
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 330, 18, 4, { r,g,b,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 330, 18, 4, { r,g,b,255 });
             Uint8 r = 255, g = 255, b = 255;
 
             if ((angle >= 0 && angle < 150) || (angle > 210 && angle <= 360))
             {
-                sprintf_s(textUI, 30, "!!! Angle: %d", angle);
+                sprintf_s(textUI, 30, "! Angle: %d", angle);
                 g = b = 0;
             }
             else sprintf_s(textUI, 30, "Angle: %d", angle);
 
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 310, 18, 4, { r,g,b,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 310, 18, 4, { r,g,b,255 });
         }
         else if (earthGravity.y == 0.0f && moonGravity.y == 0.0f)
         {
             sprintf_s(textUI, 40, "Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y * -1);
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 330, 18, 4, { 255,255,255,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 330, 18, 4, { 255,255,255,255 });
             sprintf_s(textUI, 30, "Angle: %d", angle);
-            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 310, 18, 4, { 255,255,255,255 });
+            app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 310, 18, 4, { 255,255,255,255 });
         }
         
         sprintf_s(textUI, 30, "Earth's Gravity: %.3f", earthGravity.y);
-        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 290, 18, 4, { 255,255,255,255 });
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 290, 18, 4, { 255,255,255,255 });
         sprintf_s(textUI, 30, "Moon's Gravity: %.3f", moonGravity.y);
-        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 270, 18, 4, { 255,255,255,255 });
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 270, 18, 4, { 255,255,255,255 });
 
         sprintf_s(textUI, 20, "Mass: %.3f", body->mass);
-        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 250, 18, 4, { 255,255,255,255 });
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 250, 18, 4, { 255,255,255,255 });
 
-        if (currentLocation == Location::WATER) sprintf_s(textUI, 35, "Location: Underwater");
+        if (currentLocation == Location::WATER) sprintf_s(textUI, 35, "Location: Underwater (+Buoyancy)");
         else if (currentLocation == Location::MOON) sprintf_s(textUI, 35, "Location: Moon");
         else if (currentLocation == Location::GROUND) sprintf_s(textUI, 35, "Location: Ground");
-        else if (currentLocation == Location::SPACE && earthGravity.y == 0.0f && moonGravity.y == 0.0f) sprintf_s(textUI, 35, "Location: Outter Space");
+        else if (currentLocation == Location::SPACE && earthGravity.y == 0.0f && moonGravity.y == 0.0f) sprintf_s(textUI, 35, "Location: Outer Space");
         else if (currentLocation == Location::SPACE && earthGravity.y > 0.0f) sprintf_s(textUI, 60, "Location: Earth's Gravitational Field (+Drag)");
         else if (currentLocation == Location::SPACE && moonGravity.y < 0.0f) sprintf_s(textUI, 60, "Location: Moon's Gravitational Field");
         app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 - 610, app->win->GetWindowHeight() / 2 - 350, 18, 4, { 255,255,255,255 });
