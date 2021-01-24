@@ -20,6 +20,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 {
 	// Load music & sprites
 	app->audio->PlayMusic("Assets/Audio/Music/music_space.wav");
+	fxDie = app->audio->LoadFx("Assets/Audio/Fx/explosion_crunch.ogg");
 
 	space = app->tex->Load("Assets/Textures/space.png");
 	spaceRect = { 0,0,1280,3600 };
@@ -60,7 +61,8 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	// Initialize game colliders
 	earthBottomCollision = new RectCollision({ 0,3555,1280,45 });
 	earthWaterCollision = new RectCollision({ 0,3257,1280,343 });
-	earthGroundCollision = new RectCollision({ 538,3222,490,35 });
+	earthGroundCollision = new RectCollision({ 538,3222,490,10 });
+	earthIslandCollision = new RectCollision({ 538,3232,490,110 });
 	moonGroundCollision = new RectCollision({ 0,0,1280,223 });
 
 	// Initialize Physics factors
@@ -69,6 +71,12 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	buoyancyStart = 3153;
 	buoyancyEnd = 3600;
 
+	player->explode = false;
+	player->propulsion = false;
+	player->hasTouchedMoon = false;
+
+	app->sceneManager->win = false;
+
     return false;
 }
 
@@ -76,10 +84,19 @@ bool SceneGameplay::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		TransitionToScene(SceneType::TITLE);
-	if (player->explode)
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		TransitionToScene(SceneType::ENDING);
+
 	if (app->sceneManager->win)
 		TransitionToScene(SceneType::ENDING);
+
+	if (player->explode)
+	{
+		app->audio->PlayFx(fxDie);
+		TransitionToScene(SceneType::ENDING);
+	}
+
 	player->Update(dt);
 
 	world->Update(dt);
@@ -97,6 +114,7 @@ bool SceneGameplay::Draw()
 	asteroid2->Draw();
 	asteroid3->Draw();
 	asteroid4->Draw();
+
 	player->Draw();
 
     return false;
@@ -143,16 +161,18 @@ void SceneGameplay::CheckAllColisions()
 		player->hasTouchedMoon = true;
 	}
 	else
-	{ 
+	{
 		player->currentLocation = Location::SPACE;
+	}
+
+	if (earthIslandCollision->Intersects(player->body->rectCollision->collider))
+	{
+		player->explode = true;
 	}
 
 	if (earthBottomCollision->Intersects(player->body->rectCollision->collider))
 	{
-		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
-		player->propulsion = false;
-		if (player->body->velocity.y < 0)
-			player->body->velocity = { 0,0 };
+		player->explode = true;
 	}
 
 	if (asteroid1->collider->Intersects(player->body->rectCollision->collider) ||
@@ -180,11 +200,13 @@ bool SceneGameplay::Unload()
 	asteroid4->active = false;
 	
 	RELEASE(font);
+
 	world->CleanUp();
 	RELEASE(world);
 	RELEASE(earthBottomCollision);
 	RELEASE(earthWaterCollision);
 	RELEASE(earthGroundCollision);
+	RELEASE(earthIslandCollision);
 	RELEASE(moonGroundCollision);
 
     return false;

@@ -25,6 +25,7 @@ SceneManager::SceneManager() : Module()
 	transitionAlpha = 0.0f;;
 
 	menuExitCall = false;
+	win = false;
 }
 
 // Destructor

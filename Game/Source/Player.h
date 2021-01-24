@@ -12,6 +12,7 @@
 class Body;
 class Font;
 class Circle;
+
 enum class Location
 {
     SPACE,
@@ -66,7 +67,6 @@ private:
     bool animRight = false;
 
     bool fireDraw = false;
-    int fxDie = 0;
 
     Font* fontUI = nullptr;
 
@@ -81,8 +81,9 @@ public:
     Body* body = nullptr;
     Circle* c = nullptr;
     uint angle = 0;
+
     bool explode = false;
-    bool propulsion = true;
+    bool propulsion = false;
     bool hasTouchedMoon = false;
 };
 

@@ -5,7 +5,6 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Window.h"
-#include "Audio.h"
 #include "Input.h"
 #include "Font.h"
 
@@ -72,7 +71,9 @@ Player::Player() : Entity(EntityType::PLAYER)
 
     currentLocation = Location::SPACE;
 
-    fxDie = app->audio->LoadFx("Assets/Audio/Fx/explosion_crunch.ogg");
+    explode = false;
+    propulsion = false;
+    hasTouchedMoon = false;
 }
 
 bool Player::Update(float dt)
@@ -98,6 +99,7 @@ bool Player::Update(float dt)
 
     //if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(true);
     //if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(false);
+    
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
         propulsion = true;
@@ -244,11 +246,11 @@ bool Player::Draw()
         sprintf_s(textUI, 20, "Mass: %.3f", body->mass);
         app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 325, app->win->GetWindowHeight() / 2 - 250, 18, 4, { 255,255,255,255 });
 
-        if (currentLocation == Location::WATER) sprintf_s(textUI, 35, "Location: Underwater (+Buoyancy)");
-        else if (currentLocation == Location::MOON) sprintf_s(textUI, 35, "Location: Moon");
-        else if (currentLocation == Location::GROUND) sprintf_s(textUI, 35, "Location: Ground");
+        if (currentLocation == Location::WATER) sprintf_s(textUI, 35, "Location: Underwater (+ Buoyancy)");
+        else if (currentLocation == Location::MOON) sprintf_s(textUI, 35, "Location: Moon's Surface");
+        else if (currentLocation == Location::GROUND) sprintf_s(textUI, 35, "Location: Earth's Surface");
         else if (currentLocation == Location::SPACE && earthGravity.y == 0.0f && moonGravity.y == 0.0f) sprintf_s(textUI, 35, "Location: Outer Space");
-        else if (currentLocation == Location::SPACE && earthGravity.y > 0.0f) sprintf_s(textUI, 60, "Location: Earth's Gravitational Field (+Drag)");
+        else if (currentLocation == Location::SPACE && earthGravity.y > 0.0f) sprintf_s(textUI, 60, "Location: Earth's Gravitational Field (+ Drag)");
         else if (currentLocation == Location::SPACE && moonGravity.y < 0.0f) sprintf_s(textUI, 60, "Location: Moon's Gravitational Field");
         app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 - 610, app->win->GetWindowHeight() / 2 - 350, 18, 4, { 255,255,255,255 });
     }

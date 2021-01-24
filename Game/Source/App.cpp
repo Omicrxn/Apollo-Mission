@@ -207,7 +207,7 @@ void App::FinishUpdate()
 	if (debug)
 		win->SetTitle(titleDebug);
 	else
-		win->SetTitle("Apollo Mission - B.A.T. Studios");
+		win->SetTitle("Apollo Mission | B.A.T. Studios");
 
 	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
 	{

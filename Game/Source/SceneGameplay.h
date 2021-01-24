@@ -46,9 +46,12 @@ private:
     SDL_Texture* explosion = nullptr;
     SDL_Texture* asteroidTexture = nullptr;
 
+    int fxDie = 0;
+
     RectCollision* earthBottomCollision = nullptr;
     RectCollision* earthWaterCollision = nullptr;
     RectCollision* earthGroundCollision = nullptr;
+    RectCollision* earthIslandCollision = nullptr;
     RectCollision* moonGroundCollision = nullptr;
 
     float fluidDensity = 0;

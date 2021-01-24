@@ -88,9 +88,6 @@ bool SceneTitle::Update(float dt)
     else
         clicking = false;
 
-    if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-        TransitionToScene(SceneType::GAMEPLAY);
-
     return false;
 }
 

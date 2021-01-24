@@ -23,6 +23,7 @@ public:
     bool Unload();
 
 private:
+
     Font* font = nullptr;
 };
 

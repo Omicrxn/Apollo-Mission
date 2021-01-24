@@ -30,9 +30,11 @@ bool SceneEnding::Load()
 
 bool SceneEnding::Update(float dt)
 {
-    if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+    if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) 
+    {
         TransitionToScene(SceneType::TITLE);
     }
+
     return false;
 }
 
