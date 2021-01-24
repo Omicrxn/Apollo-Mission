@@ -106,14 +106,38 @@ bool SceneTitle::Draw()
         app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4 + offset, (int)app->win->GetWindowHeight() / 2 - 100 + offset, 75, 13, { 105,105,105,255 });
         app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4, (int)app->win->GetWindowHeight() / 2 - 100, 75, 13, { 255,255,255,255 });
 
-        app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65 + offset, (int)app->win->GetWindowHeight() / 2 + 23 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65, (int)app->win->GetWindowHeight() / 2 + 23, 40, 5, { 255,255,255,255 });
+        if (buttonStart->state == GuiControlState::PRESSED)
+        {
+            app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65 + offset, (int)app->win->GetWindowHeight() / 2 + 23 + offset, 40, 5, { 255,255,255,255 });
+            app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65, (int)app->win->GetWindowHeight() / 2 + 23, 40, 5, { 0,0,0,255 });
+        }
+        else
+        {
+            app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65 + offset, (int)app->win->GetWindowHeight() / 2 + 23 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "START", (int)app->win->GetWindowWidth() / 2 - 65, (int)app->win->GetWindowHeight() / 2 + 23, 40, 5, { 255,255,255,255 });
+        }
 
-        app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83 + offset, (int)app->win->GetWindowHeight() / 2 + 83 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83, (int)app->win->GetWindowHeight() / 2 + 83, 40, 5, { 255,255,255,255 });
+        if (buttonCredits->state == GuiControlState::PRESSED)
+        {
+            app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83 + offset, (int)app->win->GetWindowHeight() / 2 + 83 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83, (int)app->win->GetWindowHeight() / 2 + 83, 40, 5, { 0,0,0,255 });
+        }
+        else
+        {
+            app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83 + offset, (int)app->win->GetWindowHeight() / 2 + 83 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "CREDITS", (int)app->win->GetWindowWidth() / 2 - 83, (int)app->win->GetWindowHeight() / 2 + 83, 40, 5, { 255,255,255,255 });
+        }
 
-        app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43 + offset, (int)app->win->GetWindowHeight() / 2 + 143 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43, (int)app->win->GetWindowHeight() / 2 + 143, 40, 5, { 255,255,255,255 });
+        if (buttonExit->state == GuiControlState::PRESSED)
+        {
+            app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43 + offset, (int)app->win->GetWindowHeight() / 2 + 143 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43, (int)app->win->GetWindowHeight() / 2 + 143, 40, 5, { 0,0,0,255 });
+        }
+        else
+        {
+            app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43 + offset, (int)app->win->GetWindowHeight() / 2 + 143 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "EXIT", (int)app->win->GetWindowWidth() / 2 - 43, (int)app->win->GetWindowHeight() / 2 + 143, 40, 5, { 255,255,255,255 });
+        }
     }
     else if (menuCurrentSelection == MenuSelection::CREDITS)
     {
@@ -138,8 +162,17 @@ bool SceneTitle::Draw()
 
         offset = 3;
         buttonReturn->Draw();
-        app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80 + offset, 625 + offset, 40, 5, { 105,105,105,255 });
-        app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80, 625, 40, 5, { 255,255,255,255 });
+
+        if (buttonReturn->state == GuiControlState::PRESSED)
+        {
+            app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80 + offset, 625 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80, 625, 40, 5, { 0,0,0,255 });
+        }
+        else
+        {
+            app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80 + offset, 625 + offset, 40, 5, { 105,105,105,255 });
+            app->render->DrawText(font, "RETURN", (int)app->win->GetWindowWidth() / 2 - 80, 625, 40, 5, { 255,255,255,255 });
+        }
     }
 
     if (clicking)
