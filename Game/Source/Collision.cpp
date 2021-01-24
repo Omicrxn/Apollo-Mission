@@ -8,10 +8,10 @@ RectCollision::RectCollision(SDL_Rect collider, Module* listener) {
 
 bool RectCollision::Intersects(SDL_Rect& colliderB) {
 
-	return (collider.x < colliderB.x + colliderB.w &&
-		collider.x + collider.w > colliderB.x &&
-		collider.y < colliderB.y + colliderB.h &&
-		collider.y + collider.h > colliderB.y);
+	return (collider.x < (colliderB.x + colliderB.w) &&
+		(collider.x + collider.w) > colliderB.x &&
+		collider.y < (colliderB.y + colliderB.h) &&
+		(collider.y + collider.h) > colliderB.y);
 }
 
 bool RectCollision::Intersects(CircleCollider& colliderB) {

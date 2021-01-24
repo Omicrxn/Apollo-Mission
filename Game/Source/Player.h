@@ -89,6 +89,7 @@ public:
 
     uint angle = 0;
     bool explode = false;
+    bool propulsion = true;
 };
 
 #endif // __PLAYER_H__

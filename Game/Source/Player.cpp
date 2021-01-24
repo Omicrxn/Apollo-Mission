@@ -98,6 +98,7 @@ bool Player::Update(float dt)
     //if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(false);
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
+        propulsion = true;
         fireDraw = true;
         Propulsion(true, angle);
         //app->audio->PlayFx(fxPropulsion);
@@ -217,7 +218,16 @@ void Player::HorizontalMove(bool isLeft)
 void Player::Propulsion(bool isUp, uint angle)
 {
     float angleRad = ((float)angle * PI) / 180.0f;
-    isUp ? body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
+    if (!isUp) {
+        if(propulsion)
+        body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
+
+    }
+    else {
+        body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
+
+    }
+
 }
 
 void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2, SDL_Texture* tex3)

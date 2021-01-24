@@ -4,12 +4,9 @@
 #include <algorithm>
 #include <cmath>
 #include <cassert>
-
-
+#define PI 3.141592741f
+#define EPSILON 0.0001f
 typedef float customFloat;
-
-const customFloat PI = 3.141592741f;
-const customFloat EPSILON = 0.0001f;
 template <class T>
 class Vec2 {
 public:
@@ -152,83 +149,6 @@ typedef Vec2<float> Vec2f;
 typedef Vec2<double> Vec2d;
 typedef Vec2<customFloat> Vec2c;
 
-
-struct Matrix2D
-{
-    union
-    {
-        struct
-        {
-            customFloat m00, m01;
-            customFloat m10, m11;
-        };
-
-        customFloat m[2][2];
-        customFloat v[4];
-    };
-
-    Matrix2D() {}
-    Matrix2D(customFloat radians)
-    {
-        customFloat c = std::cos(radians);
-        customFloat s = std::sin(radians);
-
-        m00 = c; m01 = -s;
-        m10 = s; m11 = c;
-    }
-
-    Matrix2D(customFloat a, customFloat b, customFloat c, customFloat d)
-        : m00(a), m01(b)
-        , m10(c), m11(d)
-    {
-    }
-
-    void Set(customFloat radians)
-    {
-        customFloat c = std::cos(radians);
-        customFloat s = std::sin(radians);
-
-        m00 = c; m01 = -s;
-        m10 = s; m11 = c;
-    }
-
-    Matrix2D Abs(void) const
-    {
-        return Matrix2D(std::abs(m00), std::abs(m01), std::abs(m10), std::abs(m11));
-    }
-
-    Vec2c AxisX(void) const
-    {
-        return Vec2c(m00, m10);
-    }
-
-	Vec2c AxisY(void) const
-    {
-        return Vec2c(m01, m11);
-    }
-
-    Matrix2D Transpose(void) const
-    {
-        return Matrix2D(m00, m10, m01, m11);
-    }
-
-    const Vec2c operator*(const Vec2c& rhs) const
-    {
-        return Vec2c(m00 * rhs.x + m01 * rhs.y, m10 * rhs.x + m11 * rhs.y);
-    }
-
-    const Matrix2D operator*(const Matrix2D& rhs) const
-    {
-
-        return Matrix2D(
-            m[0][0] * rhs.m[0][0] + m[0][1] * rhs.m[1][0],
-            m[0][0] * rhs.m[0][1] + m[0][1] * rhs.m[1][1],
-            m[1][0] * rhs.m[0][0] + m[1][1] * rhs.m[1][0],
-            m[1][0] * rhs.m[0][1] + m[1][1] * rhs.m[1][1]
-        );
-    }
-};
-
 inline Vec2c Min(const Vec2c& a, const Vec2c& b)
 {
     return Vec2c(std::min(a.x, b.x), std::min(a.y, b.y));
@@ -265,10 +185,9 @@ inline customFloat Cross(const Vec2c& a, const Vec2c& b)
     return a.x * b.y - a.y * b.x;
 }
 
-// Comparison with tolerance of EPSILON
+
 inline bool Equal(customFloat a, customFloat b)
 {
-    // <= instead of < for NaN comparison safety
     return std::abs(a - b) <= EPSILON;
 }
 

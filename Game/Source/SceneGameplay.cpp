@@ -53,10 +53,11 @@ bool SceneGameplay::Update(float dt)
 		TransitionToScene(SceneType::TITLE);
 
 	player->Update(dt);
-
 	world->Update(dt);
-
 	CheckAllColisions();
+
+
+
 
 	return true;
 }
@@ -82,7 +83,9 @@ void SceneGameplay::CheckAllColisions()
 		}
 
 		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
+		player->propulsion = false;
 		player->body->velocity = { 0,0 };
+
 	}
 	else if (earthWaterCollision->Intersects(player->body->rectCollision->collider))
 	{
@@ -99,17 +102,22 @@ void SceneGameplay::CheckAllColisions()
 		}
 
 		player->body->AddNormalForce(Vec2f(0.0f, (player->moonGravity.y * -1.0f)));
+		player->propulsion = false;
 		player->body->velocity = { 0,0 };
 	}
 	else
-	{
+	{ 
 		player->currentLocation = Location::SPACE;
 	}
 
 	if (earthBottomCollision->Intersects(player->body->rectCollision->collider))
 	{
 		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
-		player->body->velocity = { 0,0 };
+		player->propulsion = false;
+		if (player->body->velocity.y < 0) {
+			player->body->velocity = { 0,0 };
+
+		}
 	}
 }
 

@@ -42,7 +42,7 @@ Vec2f Body::AccelerationFromForce(Vec2f force, float mass)
 {
 
 
-	return force / mass; //TODO: Check if dt
+	return force / mass;
 }
 
 float Body::AccelerationFromForceAngular(float torque, float inertia)
@@ -146,5 +146,4 @@ void Body::AddCollision(SDL_Rect bounds, ColliderType type, Module* listener) {
 	default:
 		break;
 	}
-
 }
