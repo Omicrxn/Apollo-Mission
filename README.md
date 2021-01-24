@@ -1,7 +1,6 @@
 # Apollo Mission | B.A.T. Studios
 
 Link to the repository: [B.A.T. Studios' Apollo Mission in GitHub](https://github.com/Omicrxn/Apollo-Mission)
-
 Link to the latest release: [Apollo Mission newest release](https://github.com/Omicrxn/Apollo-Mission/releases)
 
 ## Description
