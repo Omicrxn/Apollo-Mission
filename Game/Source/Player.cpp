@@ -78,9 +78,9 @@ bool Player::Update(float dt)
         body->position.x = 0;
     }
 
-    if (body->position.x >= 1280)
+    if (body->position.x >= 1220)
     {
-        body->position.x = 1280;
+        body->position.x = 1220;
     }
 
     //if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(true);
