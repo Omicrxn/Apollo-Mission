@@ -190,18 +190,38 @@ bool Player::Draw()
         if (fireDraw) 
             app->render->DrawTexture(fireTexture, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
 
-        //static char titleDebug[256];
-        //sprintf_s(titleDebug, 256,
-        //    "| Player velocity: %.3f,%.3f | Player position: %.3f,%.3f | Player mass: %.3f | Player angle: %d | Earth gravity: %.3f | Moon gravity: %.3f | Location: %d |",
-        //    body->velocity.x, body->velocity.y, body->position.x, body->position.y, body->mass, angle, earthGravity.y, moonGravity.y, currentLocation
-        //);
-        //app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4 + offset, (int)app->win->GetWindowHeight() / 2 - 100 + offset, 75, 13, { 105,105,105,255 });
-        app->render->DrawText(fontUI, "Position", app->win->GetWindowWidth() / 2 + 400, app->win->GetWindowHeight()/2, 18, 4, { 255,255,255,255 });
+        // UI Draw
+        static char textUI[80];
+
+        sprintf_s(textUI, 80, "Velocity: %.3f,%.3f", body->velocity.x, body->velocity.y);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight()/2 - 350, 18, 4, { 255,255,255,255 });
+        
+        sprintf_s(textUI, 80, "Position: %.0f,%.0f", body->position.x, body->position.y);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 330, 18, 4, { 255,255,255,255 });
+        
+        sprintf_s(textUI, 80, "Player mass: %.3f", body->mass);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 310, 18, 4, { 255,255,255,255 });
+
+        sprintf_s(textUI, 80, "Angle: %d", angle);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 290, 18, 4, { 255,255,255,255 });
+
+        sprintf_s(textUI, 80, "Earth gravity: %.3f", earthGravity.y);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 270, 18, 4, { 255,255,255,255 });
+
+        sprintf_s(textUI, 80, "Moon gravity: %.3f", moonGravity.y);
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 335, app->win->GetWindowHeight() / 2 - 250, 18, 4, { 255,255,255,255 });
+
+        if (currentLocation == Location::WATER) sprintf_s(textUI, 80, "Location: Underwater");
+        if (currentLocation == Location::MOON) sprintf_s(textUI, 80, "Location: Moon");
+        if (currentLocation == Location::GROUND) sprintf_s(textUI, 80, "Location: Ground");
+        if (currentLocation == Location::SPACE) sprintf_s(textUI, 80, "Location: Space");
+        app->render->DrawText(fontUI, textUI, app->win->GetWindowWidth() / 2 + 340, app->win->GetWindowHeight() / 2 - 230, 18, 4, { 255,255,255,255 });
     }
 
     if (explode)
     {
         app->render->DrawTexture(explosionTexture, body->position.x - 47.5f, body->position.y - 75.5f, &explosion.GetCurrentFrame(), 1.0f, angle);
+        //TransitionToScene(SceneType::TITLE);
     }
 
     return false;

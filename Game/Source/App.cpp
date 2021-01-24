@@ -137,8 +137,6 @@ bool App::Start()
 
 	PERF_PEEK(ptimer);
 
-	win->SetTitle("Apollo Mission - B.A.T. Studios");
-
 	return ret;
 }
 
@@ -206,8 +204,10 @@ void App::FinishUpdate()
 	static char titleDebug[256];
 	sprintf_s(titleDebug, 256, "| Last Second frames: %i | Last Frame Ms: %02u | Last dt: %.3f | Framerate Cap: %d |", framesOnLastSec, lastFrameMs, dt, (1000 / cappedMs));
 	
-	if(debug)
+	if (debug)
 		win->SetTitle(titleDebug);
+	else
+		win->SetTitle("Apollo Mission - B.A.T. Studios");
 
 	if ((cappedMs > 0) && (lastFrameMs < cappedMs))
 	{
