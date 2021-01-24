@@ -61,7 +61,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	// Initialize game colliders
 	earthBottomCollision = new RectCollision({ 0,3555,1280,45 });
 	earthWaterCollision = new RectCollision({ 0,3257,1280,343 });
-	earthGroundCollision = new RectCollision({ 538,3222,490,10 });
+	earthGroundCollision = new RectCollision({ 538,3222,480,10 });
 	earthIslandCollision = new RectCollision({ 538,3232,490,110 });
 	moonGroundCollision = new RectCollision({ 0,0,1280,223 });
 
