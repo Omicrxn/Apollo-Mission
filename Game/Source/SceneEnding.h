@@ -1,8 +1,12 @@
 #pragma once
 #ifndef __SCENE_ENDING_H__
 #define __SCENE_ENDING_H__
+
 #include "SDL/include/SDL.h"
 #include "Scene.h"
+
+class Font;
+
 class SceneEnding : public Scene
 {
 public:
@@ -19,8 +23,7 @@ public:
     bool Unload();
 
 private:
-    SDL_Texture* bgText = nullptr;
-    SDL_Rect bgRect = { 0,0,1280,720 };
+    Font* font = nullptr;
 };
 
 #endif // __SCENETITLE_H__
