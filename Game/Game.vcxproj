@@ -99,6 +99,7 @@
     <ClCompile Include="Source\Audio.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\SceneEnding.cpp" />
     <ClCompile Include="Source\SceneGameplay.cpp" />
     <ClCompile Include="Source\SceneLogo.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneEnding.h" />
     <ClInclude Include="Source\SceneGameplay.h" />
     <ClInclude Include="Source\SceneLogo.h" />
     <ClInclude Include="Source\SceneManager.h" />

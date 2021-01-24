@@ -57,6 +57,9 @@
     <ClCompile Include="Source\StageBody.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneEnding.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -167,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="Source\StageBody.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneEnding.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,8 @@ enum class SceneType
 {
     LOGO,
     TITLE,
-    GAMEPLAY
+    GAMEPLAY,
+    ENDING
 };
 
 class Scene
