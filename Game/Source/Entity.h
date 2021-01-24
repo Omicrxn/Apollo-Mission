@@ -8,7 +8,7 @@
 enum class EntityType
 {
     PLAYER,
-    STAGE,
+    ASTEROID,
     UNKNOWN
 };
 

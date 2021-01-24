@@ -4,6 +4,7 @@
 #include "Scene.h"
 
 #include "Player.h"
+#include "Asteroid.h"
 #include "World.h"
 
 class Collider;
@@ -31,6 +32,11 @@ private:
     Player* player = nullptr;
     SDL_Rect camera = { 0,0,0,0 };
 
+    Asteroid* asteroid1 = nullptr;
+    Asteroid* asteroid2 = nullptr;
+    Asteroid* asteroid3 = nullptr;
+    Asteroid* asteroid4 = nullptr;
+
     World* world = nullptr;
 
     SDL_Texture* space = nullptr;
@@ -38,6 +44,7 @@ private:
     SDL_Texture* smallFighter = nullptr;
     SDL_Texture* fire = nullptr;
     SDL_Texture* explosion = nullptr;
+    SDL_Texture* asteroidTexture = nullptr;
 
     RectCollision* earthBottomCollision = nullptr;
     RectCollision* earthWaterCollision = nullptr;

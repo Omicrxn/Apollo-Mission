@@ -1,7 +1,7 @@
 #include "EntityManager.h"
 
 #include "Player.h"
-#include "StageBody.h"
+#include "Asteroid.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -41,8 +41,8 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		// L13: Create the corresponding type entity
 		case EntityType::PLAYER: ret = new Player();
 			break;
-		//case EntityType::STAGE: ret = new Enemy();
-			//break;
+		case EntityType::ASTEROID: ret = new Asteroid();
+			break;
 		default:
 			break;
 	}

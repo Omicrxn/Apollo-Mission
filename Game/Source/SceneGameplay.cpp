@@ -26,6 +26,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	smallFighter = app->tex->Load("Assets/Textures/small_fighter.png");
 	fire = app->tex->Load("Assets/Textures/fire.png");
 	explosion = app->tex->Load("Assets/Textures/explosion.png");
+	asteroidTexture = app->tex->Load("Assets/Textures/asteroid.png");
 
 	font = new Font("Assets/Fonts/future_font.xml");
 
@@ -33,6 +34,23 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->SetTextures(smallFighter, fire, explosion);
 	player->SetFont(font);
+
+	// Adding asteroids
+	asteroid1 = (Asteroid*)app->entityManager->CreateEntity(EntityType::ASTEROID);
+	asteroid1->SetTexture(asteroidTexture);
+	asteroid1->SetPosition(Vec2i{ 0,500 });
+
+	asteroid2 = (Asteroid*)app->entityManager->CreateEntity(EntityType::ASTEROID);
+	asteroid2->SetTexture(asteroidTexture);
+	asteroid2->SetPosition(Vec2i{ 480,1000 });
+
+	asteroid3 = (Asteroid*)app->entityManager->CreateEntity(EntityType::ASTEROID);
+	asteroid3->SetTexture(asteroidTexture);
+	asteroid3->SetPosition(Vec2i{ 0,1500 });
+
+	asteroid4 = (Asteroid*)app->entityManager->CreateEntity(EntityType::ASTEROID);
+	asteroid4->SetTexture(asteroidTexture);
+	asteroid4->SetPosition(Vec2i{ 480,2000 });
 	
 	// Initialize world
 	world = new World();
@@ -72,6 +90,10 @@ bool SceneGameplay::Draw()
 {
 	app->render->DrawTexture(space, 0, 0, &spaceRect);
 
+	asteroid1->Draw();
+	asteroid2->Draw();
+	asteroid3->Draw();
+	asteroid4->Draw();
 	player->Draw();
 
     return false;
@@ -83,7 +105,7 @@ void SceneGameplay::CheckAllColisions()
 	{
 		player->currentLocation = Location::GROUND;
 
-		if (player->angle > 30 && player->angle < 330 || player->body->velocity.y > 100)
+		if (player->angle > 30 && player->angle < 330 || player->body->velocity.y > 200)
 		{
 			player->explode = true;
 		}
@@ -102,7 +124,7 @@ void SceneGameplay::CheckAllColisions()
 	{
 		player->currentLocation = Location::MOON;
 
-		if ((player->angle >= 0 && player->angle < 150) || (player->angle > 210 && player->angle <= 360) || player->body->velocity.y < -100)
+		if ((player->angle >= 0 && player->angle < 150) || (player->angle > 210 && player->angle <= 360) || player->body->velocity.y < -200)
 		{
 			player->explode = true;
 		}
@@ -123,15 +145,25 @@ void SceneGameplay::CheckAllColisions()
 		if (player->body->velocity.y < 0)
 			player->body->velocity = { 0,0 };
 	}
+
+	if (asteroid1->collider->Intersects(player->body->rectCollision->collider) ||
+		asteroid2->collider->Intersects(player->body->rectCollision->collider))
+	{
+		player->explode = true;
+	}
 }
 
 bool SceneGameplay::Unload()
 {
 	// TODO: Unload all resources
 	app->tex->UnLoad(space);
+	app->tex->UnLoad(smallFighter);
 	app->tex->UnLoad(fire);
+	app->tex->UnLoad(explosion);
+	app->tex->UnLoad(asteroidTexture);
 
 	delete font;
+	font = nullptr;
 
     return false;
 }

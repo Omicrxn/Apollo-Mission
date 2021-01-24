@@ -54,7 +54,7 @@
     <ClCompile Include="Source\Collision.cpp">
       <Filter>PhysicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\StageBody.cpp">
+    <ClCompile Include="Source\Asteroid.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneEnding.cpp">
@@ -168,7 +168,7 @@
     <ClInclude Include="Source\Collision.h">
       <Filter>PhysicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\StageBody.h">
+    <ClInclude Include="Source\Asteroid.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneEnding.h">
