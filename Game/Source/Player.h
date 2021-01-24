@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 
 #include "Entity.h"
+#include "Animation.h"
 
 #include "Point.h"
 #include "SString.h"
@@ -40,9 +41,11 @@ public:
 
     SDL_Rect GetBounds();
 
+    Vec2f GetGravity();
+
 private:
     void HorizontalMove(bool isLeft);
-    void Propulsion(bool isUp);
+    void Propulsion(bool isUp, uint angle);
 
     Vec2f earthMaxGravity = { 0.0f,0.0f };
     uint earthGravityStart = 0;
@@ -52,9 +55,14 @@ private:
     uint moonGravityStart = 0;
     uint moonGravityEnd = 0;
 
-
     int fxPropulsion = 0;
     int fxDie = 0;
+
+    uint angle = 0;
+    Animation smallFighterTurnLeft;
+    Animation smallFighterTurnRight;
+    bool animLeft;
+    bool animRight;
 
 public:
 

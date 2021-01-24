@@ -24,7 +24,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->SetTexture(app->tex->Load("Assets/Textures/space_spritesheet.png"));
+	player->SetTexture(app->tex->Load("Assets/Textures/small_fighter.png"));
 	
 	// Initialize world
 	world = new World();
@@ -35,6 +35,11 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	earthWaterCollision = new RectCollision({ 0,3257,1280,343 });
 	earthGroundCollision = new RectCollision({ 538,3222,490,35 });
 	moonGroundCollision = new RectCollision({ 0,0,1280,223 });
+
+	fluidDensity = 0.75;
+	volumeSubmerged = 25;
+	buoyancyStart = 3153;
+	buoyancyEnd = 3600;
 
     return false;
 }
@@ -72,6 +77,7 @@ void SceneGameplay::CheckAllColisions()
 	}
 	else if (earthWaterCollision->Intersects(player->body->rectCollision->collider))
 	{
+		player->body->AddBuoyancy(fluidDensity, player->GetGravity(), volumeSubmerged, player->body->GetBuoyancyHeight(player->body->position, buoyancyStart, buoyancyEnd));
 		player->currentLocation = Location::WATER;
 	}
 	else if (moonGroundCollision->Intersects(player->body->rectCollision->collider))
@@ -90,7 +96,6 @@ void SceneGameplay::CheckAllColisions()
 		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
 		player->body->velocity = { 0,0 };
 	}
-
 }
 
 bool SceneGameplay::Unload()

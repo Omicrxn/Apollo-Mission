@@ -39,6 +39,11 @@ private:
     RectCollision* earthWaterCollision = nullptr;
     RectCollision* earthGroundCollision = nullptr;
     RectCollision* moonGroundCollision = nullptr;
+
+    float fluidDensity = 0;
+    float volumeSubmerged = 0;
+    uint buoyancyStart = 0;
+    uint buoyancyEnd = 0;
 };
 
 #endif // __SCENEGAMEPLAY_H__

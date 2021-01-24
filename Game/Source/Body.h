@@ -34,7 +34,8 @@ public:
 	void AddForce(Vec2f force);
 	void AddTorque(float torque);
 	void AddForceAndTorque(Vec2f force, Vec2f position);
-	void AddBuoyancy();
+	float GetBuoyancyHeight(Vec2f position, uint buoyancyStart, uint buoyancyEnd);
+	void AddBuoyancy(float fluidDensity, Vec2f gravity, float volumeSubmerged, float buoyancyHeight);
 	void AddDrag();
 	Vec2f Body::GetGravity(Vec2f maxGravity, Vec2f position, uint gravityStart, uint gravityEnd, bool up);
 	void AddGravity(Vec2f gravity);

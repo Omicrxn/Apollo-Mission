@@ -73,23 +73,18 @@ void Body::AddImpulse(Vec2f impulse, Vec2f position)
 }
 Vec2f Body::GetGravity(Vec2f maxGravity, Vec2f position, uint gravityStart, uint gravityEnd, bool up)
 {
-	if (up)
+	if (position.y > gravityStart && position.y < gravityEnd)
 	{
-		if (position.y > gravityStart && position.y < gravityEnd)
+		Vec2f gravity = { 0.0f,0.0f };
+		if (up)
 		{
-			Vec2f gravity = { 0.0f,0.0f };
 			gravity.y = maxGravity.y - ((maxGravity.y / (gravityEnd - gravityStart)) * (position.y - gravityStart));
-			return gravity;
 		}
-	}
-	else
-	{
-		if (position.y > gravityStart && position.y < gravityEnd)
+		else
 		{
-			Vec2f gravity = { 0.0f,0.0f };
 			gravity.y = maxGravity.y - ((maxGravity.y / (gravityEnd - gravityStart)) * (gravityEnd - position.y));
-			return gravity;
 		}
+		return gravity;
 	}
 	
 	return Vec2f{ 0.0f,0.0f };
@@ -120,10 +115,14 @@ void Body::AddDrag()
 	AddForce(dragForce);
 }
 
-void Body::AddBuoyancy()
+float Body::GetBuoyancyHeight(Vec2f position, uint buoyancyStart, uint buoyancyEnd)
 {
-	/*Vec2f buoyantForce = -fluidDensity * gravity * fluidVolume;
-	this->force += buoyantForce;*/
+	return (position.y - buoyancyStart) * 0.1;
+}
+void Body::AddBuoyancy(float fluidDensity, Vec2f gravity, float volumeSubmerged, float buoyancyHeight)
+{
+	Vec2f buoyantForce = gravity * -fluidDensity * volumeSubmerged * buoyancyHeight;
+	this->force += buoyantForce;
 }
 
 void Body::AddLift(float atmosphereDensity, float wingSurface)
