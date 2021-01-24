@@ -75,8 +75,8 @@ bool Player::Update(float dt)
 
     body->AddDrag();
 
-    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(true);
-    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(false);
+    //if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(true);
+    //if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(false);
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
         Propulsion(true, angle);
@@ -88,23 +88,23 @@ bool Player::Update(float dt)
         //app->audio->PlayFx(fxPropulsion);
     }
 
-    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
     {
         smallFighterTurnLeft.Reset();
         animLeft = true;
         animRight = false;
     }
-    if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
     {
         angle += 3;
     }
-    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
     {
         smallFighterTurnRight.Reset();
         animRight = true;
         animLeft = false;
     }
-    if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
     {
         angle += 360 - 3;
     }
@@ -166,7 +166,7 @@ void Player::HorizontalMove(bool isLeft)
 void Player::Propulsion(bool isUp, uint angle)
 {
     float angleRad = ((float)angle * PI) / 180.0f;
-    isUp ? body->AddImpulse(Vec2f(0.1f * cos(PI/2 - angleRad), -0.1f * sin(PI/2 - angleRad)), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(0, 0.20f), Vec2f(0.0f, 0.0f));
+    isUp ? body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
 }
 
 void Player::SetTexture(SDL_Texture* tex)
