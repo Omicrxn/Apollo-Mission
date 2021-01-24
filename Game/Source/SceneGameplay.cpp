@@ -57,7 +57,8 @@ bool SceneGameplay::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		TransitionToScene(SceneType::TITLE);
-
+	if (player->explode)
+		TransitionToScene(SceneType::ENDING);
 	player->Update(dt);
 
 	world->Update(dt);

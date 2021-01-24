@@ -5,6 +5,7 @@
 
 
 #include "Textures.h"
+#include "Input.h"
 
 #include "SceneManager.h"
 
@@ -23,14 +24,16 @@ SceneEnding::~SceneEnding()
 bool SceneEnding::Load()
 {
     bgText = app->tex->Load("Assets/Textures/GameOver.png");
-
+    app->render->camera = { 0,0 };
     return false;
 }
 
 bool SceneEnding::Update(float dt)
 {
     
-
+    if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+        TransitionToScene(SceneType::TITLE);
+    }
     return false;
 }
 
@@ -42,7 +45,7 @@ bool SceneEnding::Draw()
 
 bool SceneEnding::Unload()
 {
-
+    app->tex->UnLoad(bgText);
 
     return false;
 }
