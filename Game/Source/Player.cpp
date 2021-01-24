@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Audio.h"
 #include "Input.h"
+#include "Font.h"
 
 #include "math.h"
 #define PI 3.14159265359
@@ -138,7 +139,7 @@ bool Player::Update(float dt)
     {
         angle = angle - 360;
     }
-    /*printf("angle: %d\n", angle);*/
+
     if (explode)
     {
         printf("true\n");
@@ -146,16 +147,6 @@ bool Player::Update(float dt)
     else
     {
         printf("false\n");
-    }
-
-    if (!app->debug)
-    {
-        static char titleDebug[256];
-        sprintf_s(titleDebug, 256, 
-            "| Player velocity: %.3f,%.3f | Player position: %.3f,%.3f | Player mass: %.3f | Earth gravity: %.3f | Moon gravity: %.3f | Location: %d |", 
-            body->velocity.x, body->velocity.y, body->position.x, body->position.y, body->mass, earthGravity.y, moonGravity.y, currentLocation
-        );
-        app->win->SetTitle(titleDebug);
     }
 
     // Follow if in bounds
@@ -195,11 +186,17 @@ bool Player::Draw()
     if (!explode)
     {
         app->render->DrawTexture(texture, body->position.x, body->position.y, &currentAnim, 1.0f, angle);
-    }
 
-    if (fireDraw)
-    {
-        app->render->DrawTexture(fireTexture, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
+        if (fireDraw) 
+            app->render->DrawTexture(fireTexture, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
+
+        //static char titleDebug[256];
+        //sprintf_s(titleDebug, 256,
+        //    "| Player velocity: %.3f,%.3f | Player position: %.3f,%.3f | Player mass: %.3f | Player angle: %d | Earth gravity: %.3f | Moon gravity: %.3f | Location: %d |",
+        //    body->velocity.x, body->velocity.y, body->position.x, body->position.y, body->mass, angle, earthGravity.y, moonGravity.y, currentLocation
+        //);
+        //app->render->DrawText(font, "APOLLO MISSION", (int)app->win->GetWindowWidth() / 4 + offset, (int)app->win->GetWindowHeight() / 2 - 100 + offset, 75, 13, { 105,105,105,255 });
+        app->render->DrawText(fontUI, "Position", app->win->GetWindowWidth() / 2 + 400, app->win->GetWindowHeight()/2, 18, 4, { 255,255,255,255 });
     }
 
     if (explode)
@@ -218,16 +215,13 @@ void Player::HorizontalMove(bool isLeft)
 void Player::Propulsion(bool isUp, uint angle)
 {
     float angleRad = ((float)angle * PI) / 180.0f;
-    if (!isUp) {
-        if(propulsion)
-        body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
-
+    if (!isUp) 
+    {
+        if (propulsion)
+            body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
     }
-    else {
+    else
         body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
-
-    }
-
 }
 
 void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2, SDL_Texture* tex3)
@@ -235,6 +229,11 @@ void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2, SDL_Texture* tex3)
     texture = tex;
     fireTexture = tex2;
     explosionTexture = tex3;
+}
+
+void Player::SetFont(Font* font)
+{
+    fontUI = font;
 }
 
 SDL_Rect Player::GetBounds()

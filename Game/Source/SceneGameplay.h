@@ -7,6 +7,7 @@
 #include "World.h"
 
 class Collider;
+class Font;
 
 class SceneGameplay : public Scene
 {
@@ -47,6 +48,8 @@ private:
     float volumeSubmerged = 0;
     uint buoyancyStart = 0;
     uint buoyancyEnd = 0;
+
+    Font* font = nullptr;
 };
 
 #endif // __SCENEGAMEPLAY_H__

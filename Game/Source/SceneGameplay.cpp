@@ -17,17 +17,22 @@ SceneGameplay::~SceneGameplay()
 
 bool SceneGameplay::Load() /*EntityManager entityManager)*/
 {
-	// Load music & image
+	// Load music & sprites
 	app->audio->PlayMusic("Assets/Audio/Music/music_space.wav");
+
 	space = app->tex->Load("Assets/Textures/space.png");
 	spaceRect = { 0,0,1280,3600 };
+
 	smallFighter = app->tex->Load("Assets/Textures/small_fighter.png");
 	fire = app->tex->Load("Assets/Textures/fire.png");
 	explosion = app->tex->Load("Assets/Textures/explosion.png");
 
+	font = new Font("Assets/Fonts/future_font.xml");
+
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->SetTextures(smallFighter, fire, explosion);
+	player->SetFont(font);
 	
 	// Initialize world
 	world = new World();
@@ -39,6 +44,7 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	earthGroundCollision = new RectCollision({ 538,3222,490,35 });
 	moonGroundCollision = new RectCollision({ 0,0,1280,223 });
 
+	// Initialize Physics factors
 	fluidDensity = 0.75;
 	volumeSubmerged = 25;
 	buoyancyStart = 3153;
@@ -53,11 +59,10 @@ bool SceneGameplay::Update(float dt)
 		TransitionToScene(SceneType::TITLE);
 
 	player->Update(dt);
+
 	world->Update(dt);
+
 	CheckAllColisions();
-
-
-
 
 	return true;
 }
@@ -114,10 +119,8 @@ void SceneGameplay::CheckAllColisions()
 	{
 		player->body->AddNormalForce(Vec2f(0.0f, (player->earthGravity.y * -1.0f)));
 		player->propulsion = false;
-		if (player->body->velocity.y < 0) {
+		if (player->body->velocity.y < 0)
 			player->body->velocity = { 0,0 };
-
-		}
 	}
 }
 
@@ -126,6 +129,8 @@ bool SceneGameplay::Unload()
 	// TODO: Unload all resources
 	app->tex->UnLoad(space);
 	app->tex->UnLoad(fire);
+
+	delete font;
 
     return false;
 }
