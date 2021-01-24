@@ -34,6 +34,8 @@ private:
 
     SDL_Texture* space = nullptr;
     SDL_Rect spaceRect = { 0,0,0,0 };
+    SDL_Texture* smallFighter = nullptr;
+    SDL_Texture* fire = nullptr;
 
     RectCollision* earthBottomCollision = nullptr;
     RectCollision* earthWaterCollision = nullptr;

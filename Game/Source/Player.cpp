@@ -36,10 +36,8 @@ Player::Player() : Entity(EntityType::PLAYER)
     smallFighterTurnRight.loop = false;
     smallFighterTurnRight.speed = 0.1;
 
-    animLeft = false;
-    animRight = false;
-
     rect = { 20,12,55,135 };
+    fireRect = { 0,0,95,382 };
     width = rect.w;
     height = rect.h;
 
@@ -75,12 +73,27 @@ bool Player::Update(float dt)
 
     body->AddDrag();
 
+    if (body->position.x <= 0)
+    {
+        body->position.x = 0;
+    }
+
+    if (body->position.x >= 1280)
+    {
+        body->position.x = 1280;
+    }
+
     //if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(true);
     //if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && (currentLocation == Location::SPACE || currentLocation == Location::WATER)) HorizontalMove(false);
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
+        fireDraw = true;
         Propulsion(true, angle);
         //app->audio->PlayFx(fxPropulsion);
+    }
+    if (app->input->GetKey(SDL_SCANCODE_W) == KEY_UP)
+    {
+        fireDraw = false;
     }
     if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
     {
@@ -155,6 +168,11 @@ bool Player::Draw()
 
     app->render->DrawTexture(texture, body->position.x, body->position.y, &currentAnim, 1.0f, angle);
 
+    if (fireDraw)
+    {
+        app->render->DrawTexture(fire, body->position.x, body->position.y, &fireRect, 1.0f, angle, 47, 75);
+    }
+
     return false;
 }
 
@@ -169,9 +187,10 @@ void Player::Propulsion(bool isUp, uint angle)
     isUp ? body->AddImpulse(Vec2f(0.1f * cos(PI / 2 - angleRad), -0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f)) : body->AddImpulse(Vec2f(-0.1f * cos(PI / 2 - angleRad), 0.1f * sin(PI / 2 - angleRad)), Vec2f(0.0f, 0.0f));
 }
 
-void Player::SetTexture(SDL_Texture* tex)
+void Player::SetTextures(SDL_Texture* tex, SDL_Texture* tex2)
 {
     texture = tex;
+    fire = tex2;
 }
 
 SDL_Rect Player::GetBounds()

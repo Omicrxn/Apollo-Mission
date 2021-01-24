@@ -21,10 +21,12 @@ bool SceneGameplay::Load() /*EntityManager entityManager)*/
 	app->audio->PlayMusic("Assets/Audio/Music/music_space.wav");
 	space = app->tex->Load("Assets/Textures/space.png");
 	spaceRect = { 0,0,1280,3600 };
+	smallFighter = app->tex->Load("Assets/Textures/small_fighter.png");
+	fire = app->tex->Load("Assets/Textures/fire.png");
 
 	// Initialize player
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->SetTexture(app->tex->Load("Assets/Textures/small_fighter.png"));
+	player->SetTextures(smallFighter, fire);
 	
 	// Initialize world
 	world = new World();
@@ -102,6 +104,7 @@ bool SceneGameplay::Unload()
 {
 	// TODO: Unload all resources
 	app->tex->UnLoad(space);
+	app->tex->UnLoad(fire);
 
     return false;
 }
