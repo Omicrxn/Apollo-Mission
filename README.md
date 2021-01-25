@@ -14,11 +14,11 @@ Apollo Mission is a game developed by 3 students at CITM-UPC, in Barcelona. It i
 
 ## Key Features
 
-- Implements teh following forces: impulsive, gravity, drag and buoyancy.
+- Implements the following forces: impulsive, gravity, drag and buoyancy.
 - The physics engine resolves collisions.
-- The game uses different locations: underwater, Earth's surface, atmposhere, outer space and Moon's surface.
+- The game uses different locations: underwater, Earth's surface, atmosphere, outer space and Moon's surface.
 - The game implements a UI to be aware about the physics and locations.
-- The game has a clear and lose conditions.
+- The game has a clear win and lose conditions.
 - The landings require a certain conditions.
 - Asteroids that must be dodged around the map can destroy the spaceship.
 
